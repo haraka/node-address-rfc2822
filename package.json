@@ -1,0 +1,18 @@
+{
+  "name": "address-rfc2822",
+  "version": "0.0.0",
+  "description": "RFC 2822 (Header) email address parser",
+  "main": "index.js",
+  "keywords": [ "email", "address", "rfc822", "rfc2822", "mail", "from" ],
+  "scripts": {
+    "test": "./run_tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/baudehlo/node-email-rfc2822.git"
+  },  
+  "devDependencies": {
+    "nodeunit"      : "https://github.com/godsflaw/nodeunit/tarball/master"
+  },
+  "license": "MIT"
+}
