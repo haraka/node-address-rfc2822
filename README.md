@@ -18,7 +18,8 @@ Usage
 
     var addrparser = require('address-rfc2822');
 
-    var address = addrparser.parse("Matt Sergeant <helpme+npm@gmail.com>");
+    var addresses = addrparser.parse("Matt Sergeant <helpme+npm@gmail.com>");
+    var address = addresses[0];
 
     console.log("Email address: " + address.address);
     console.log("Email name: " + address.name());
