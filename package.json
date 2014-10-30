@@ -3,6 +3,7 @@
   "version": "0.0.2",
   "description": "RFC 2822 (Header) email address parser",
   "main": "index.js",
+  "homepage": "https://github.com/baudehlo/node-address-rfc2822",
   "keywords": [ "email", "address", "rfc822", "rfc2822", "mail", "from" ],
   "scripts": {
     "test": "./run_tests"
