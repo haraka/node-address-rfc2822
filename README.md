@@ -43,5 +43,6 @@ This module is MIT licensed.
 [ci-url]: https://travis-ci.org/haraka/node-address-rfc2822
 [dep-img]: https://david-dm.org/haraka/node-address-rfc2822.svg
 [dep-url]: https://david-dm.org/haraka/node-address-rfc2822
-[cov-img]: https://coveralls.io/repos/haraka/node-address-rfc2822/badge.png
-[cov-url]: https://coveralls.io/r/haraka/node-address-rfc2822
+[cov-img]: https://codecov.io/github/haraka/node-address-rfc2822/coverage.svg
+[cov-url]: https://codecov.io/github/haraka/node-address-rfc2822?branch=master
+
