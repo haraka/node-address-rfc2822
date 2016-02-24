@@ -17,4 +17,4 @@ catch(e) {
 }
 
 process.chdir(__dirname);
-reporter.run(['tests']);
+reporter.run(['test']);

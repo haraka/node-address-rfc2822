@@ -1,19 +1,29 @@
 {
   "name": "address-rfc2822",
-  "version": "0.0.2",
+  "version": "1.0.0",
   "description": "RFC 2822 (Header) email address parser",
   "main": "index.js",
   "homepage": "https://github.com/haraka/node-address-rfc2822",
-  "keywords": [ "email", "address", "rfc822", "rfc2822", "mail", "from" ],
+  "keywords": [
+    "email",
+    "address",
+    "rfc822",
+    "rfc2822",
+    "mail",
+    "from"
+  ],
   "scripts": {
     "test": "./run_tests"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/haraka/node-address-rfc2822.git"
-  },  
+  },
   "devDependencies": {
-    "nodeunit"      : "https://github.com/godsflaw/nodeunit/tarball/master"
+    "eslint": "*",
+    "grunt": "*",
+    "grunt-eslint": "*",
+    "nodeunit": "*"
   },
   "license": "MIT"
 }

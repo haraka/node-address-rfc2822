@@ -1,3 +1,8 @@
+[![Build Status][ci-img]][ci-url]
+[![Dependencies][dep-img]][dep-url]
+[![Coverage Status][cov-img]][cov-url]
+
+
 address-rfc2822
 ==================
 
@@ -33,3 +38,10 @@ License
 
 This module is MIT licensed.
 
+
+[ci-img]: https://travis-ci.org/haraka/node-address-rfc2822.svg?branch=master
+[ci-url]: https://travis-ci.org/haraka/node-address-rfc2822
+[dep-img]: https://david-dm.org/haraka/node-address-rfc2822.svg
+[dep-url]: https://david-dm.org/haraka/node-address-rfc2822
+[cov-img]: https://coveralls.io/repos/haraka/node-address-rfc2822/badge.png
+[cov-url]: https://coveralls.io/r/haraka/node-address-rfc2822
