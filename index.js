@@ -1,6 +1,8 @@
 "use strict";
 
 exports.parse = function parse (line) {
+    if (!line) throw "Nothing to parse";
+    
     var phrase = [], comment = [], address = [], objs = [];
     var depth = 0;
 
