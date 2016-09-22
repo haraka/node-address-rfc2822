@@ -8,7 +8,7 @@ before_script:
     - npm install -g grunt-cli
 
 script:
-    - grunt lint
+#    - npm run lint
     - node run_tests
 
 after_success:
