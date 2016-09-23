@@ -241,10 +241,10 @@ exports.isAllUpper = function (string) {
 
 exports.nameCase = function (string) {
 
-    // Set the case of the name to first char upper rest lower
     return string
-        .toLowerCase()  // Upcase first letter on name
+        .toLowerCase()
         .replace(/\b(\w+)/g, function (_, d1) {
+            // Set the case of the name to first char upper rest lower
             return d1.charAt(0).toUpperCase() + d1.slice(1);
         })
         .replace(/\bMc(\w)/gi, function (_, d1) {
