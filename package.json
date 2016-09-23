@@ -13,16 +13,16 @@
     "from"
   ],
   "scripts": {
-    "test": "./run_tests",
-    "lint": "eslint ."
+    "test": "./run_tests"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/haraka/node-address-rfc2822.git"
   },
   "devDependencies": {
-    "eslint": "^3.5.0",
-    "eslint-config-google": "^0.6.0",
+    "eslint": "*",
+    "grunt": "*",
+    "grunt-eslint": "*",
     "nodeunit": "*"
   },
   "license": "MIT",
