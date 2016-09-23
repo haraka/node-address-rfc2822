@@ -1,5 +1,8 @@
 "use strict";
 
+var isLowerCase = require('is-lower-case');
+var isUpperCase = require('is-upper-case');
+
 exports.parse = function parse (line) {
     if (!line) throw "Nothing to parse";
     
@@ -251,7 +254,7 @@ function _extract_name (name) {
 
     // Change casing only when the name contains only upper or only
     // lower cased characters.
-    if( ! (/[A-Z]/.test(name) && /[a-z]/.test(name)) ) {
+    if (isUpperCase(name) || isLowerCase(name)) {
         // console.log("Changing case of: " + name);
         name = name.toLowerCase();
         // Set the case of the name to first char upper rest lower
