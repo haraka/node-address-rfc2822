@@ -13,7 +13,8 @@
     "from"
   ],
   "scripts": {
-    "test": "./run_tests"
+    "test": "./run_tests",
+    "lint": "grunt lint"
   },
   "repository": {
     "type": "git",

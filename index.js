@@ -2,8 +2,11 @@
 
 exports.parse = function parse (line) {
     if (!line) throw "Nothing to parse";
-    
-    var phrase = [], comment = [], address = [], objs = [];
+
+    var phrase = [];
+    var comment = [];
+    var address = [];
+    var objs = [];
     var depth = 0;
 
     var tokens  = _tokenise(line);
@@ -33,7 +36,7 @@ exports.parse = function parse (line) {
         else if (next === '<') { phrase.push(token) }
         else if ( /^[.\@:;]$/.test(token) ||
                     address.length === 0  ||
-                    /^[.\@:;]$/.test(address[address.length - 1]) ) 
+                    /^[.\@:;]$/.test(address[address.length - 1]) )
         {
             address.push(token);
         }
@@ -50,12 +53,12 @@ exports.parse = function parse (line) {
             address.push(token);
         }
     }
-    return objs;    
+    return objs;
 }
 
 function _tokenise (line) {
-    var words = []
-    var snippet = '', field = '';
+    var words = [];
+    var field = '';
     var match;
 
     line = line.replace(/^\s+/, '');
@@ -68,12 +71,12 @@ function _tokenise (line) {
             var depth = 0;
 
             PAREN:
-            while(match = /^(\(([^\(\)\\]|\\.)*)/.exec(line)) {
+            while (match = /^(\(([^\(\)\\]|\\.)*)/.exec(line)) {
                 line = line.substr(match[0].length);
                 field += match[1];
                 depth++;
 
-                while(match = /^(([^\(\)\\]|\\.)*\)\s*)/.exec(line)) {
+                while (match = /^(([^\(\)\\]|\\.)*\)\s*)/.exec(line)) {
                     line = line.substr(match[0].length);
                     field += match[1];
                     depth--;
@@ -116,15 +119,14 @@ function _tokenise (line) {
 }
 
 function _find_next (index, tokens) {
-    while(index < tokens.length)
-    {   
+    while (index < tokens.length) {
         var c = tokens[index];
         if (c === ',' || c === ';' || c === '<') {
             return c;
         }
         index++;
     }
-    return "";
+    return '';
 }
 
 function _complete (phrase, address, comment) {
@@ -152,7 +154,7 @@ Address.prototype.user = function () {
     return match[1];
 }
 
-// This is because JS regexps have no equivalent of 
+// This is because JS regexps have no equivalent of
 // zero-width negative look-behind assertion for: /(?<!\\)"/
 function _quote_no_esc (str) {
     if (/^"/.test(str)) return true;
@@ -251,7 +253,7 @@ function _extract_name (name) {
 
     // Change casing only when the name contains only upper or only
     // lower cased characters.
-    if( ! (/[A-Z]/.test(name) && /[a-z]/.test(name)) ) {
+    if ( ! (/[A-Z]/.test(name) && /[a-z]/.test(name)) ) {
         // console.log("Changing case of: " + name);
         name = name.toLowerCase();
         // Set the case of the name to first char upper rest lower
