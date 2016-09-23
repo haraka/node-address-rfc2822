@@ -231,6 +231,36 @@ Address.prototype.name = function () {
     return name;
 }
 
+exports.isAllLower = function (string) {
+    return string === string.toLowerCase();
+}
+
+exports.isAllUpper = function (string) {
+    return string === string.toUpperCase();
+}
+
+exports.nameCase = function (string) {
+
+    // Set the case of the name to first char upper rest lower
+    return string
+        .toLowerCase()  // Upcase first letter on name
+        .replace(/\b(\w+)/g, function (_, d1) {
+            return d1.charAt(0).toUpperCase() + d1.slice(1);
+        })
+        .replace(/\bMc(\w)/gi, function (_, d1) {
+            // Scottish names such as 'McLeod'
+            return 'Mc' + d1.toUpperCase();
+        })
+        .replace(/\bo'(\w)/gi, function (_, d1) {
+            // Irish names such as 'O'Malley, O'Reilly'
+            return 'O\'' + d1.toUpperCase();
+        })
+        .replace(/\b(x*(ix)?v*(iv)?i*)\b/ig, function (_, d1) {
+            // Roman numerals, eg 'Level III Support'
+            return d1.toUpperCase();
+        });
+}
+
 // given a comment, attempt to extract a person's name
 function _extract_name (name) {
     // Using encodings, too hard. See Mail::Message::Field::Full.
@@ -253,14 +283,9 @@ function _extract_name (name) {
 
     // Change casing only when the name contains only upper or only
     // lower cased characters.
-    if ( ! (/[A-Z]/.test(name) && /[a-z]/.test(name)) ) {
+    if ( exports.isAllUpper(name) || exports.isAllLower(name) ) {
         // console.log("Changing case of: " + name);
-        name = name.toLowerCase();
-        // Set the case of the name to first char upper rest lower
-        name = name.replace(/\b(\w+)/g, function (_, d1) { return d1.charAt(0).toUpperCase() + d1.slice(1) })  // Upcase first letter on name
-                    .replace(/\bMc(\w)/gi, function (_, d1) { return 'Mc' + d1.toUpperCase() }) // Scottish names such as 'McLeod'
-                    .replace(/\bo'(\w)/gi, function (_, d1) { return 'O\'' + d1.toUpperCase() }) // Irish names such as 'O'Malley, O'Reilly'
-                    .replace(/\b(x*(ix)?v*(iv)?i*)\b/ig, function (_, d1) { return d1.toUpperCase() }) // Roman numerals, eg 'Level III Support'
+        name = exports.nameCase(name);
         // console.log("Now: " + name);
     }
 

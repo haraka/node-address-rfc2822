@@ -1,4 +1,4 @@
-var parse = require("../index").parse;
+var parse = require('../index').parse;
 
 function _check(test, line, details) {
     test.expect(Object.keys(details).length);
@@ -29,4 +29,3 @@ tests.forEach(function (test) {
         _check(t, test[0], details);
     }
 })
-

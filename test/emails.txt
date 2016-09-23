@@ -173,3 +173,7 @@ outlook@example.com
 "Foo; Bar" <both@example.com>, Baz <baz@example.com>
 "Foo; Bar" <both@example.com>
 Foo; Bar
+
+"Имя Фамилия" <name@gmail.com>
+"Имя Фамилия" <name@gmail.com>
+Имя Фамилия
