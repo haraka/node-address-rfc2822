@@ -6,6 +6,8 @@
 address-rfc2822
 ==================
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/haraka/node-address-rfc2822.svg)](https://greenkeeper.io/)
+
 Parser for RFC2822 (Header) format email addresses.
 
 This module parses RFC2822 headers containing addresses such as From, To, CC, and Bcc headers.
