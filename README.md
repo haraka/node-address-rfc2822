@@ -1,12 +1,11 @@
 [![Build Status][ci-img]][ci-url]
 [![Dependencies][dep-img]][dep-url]
 [![Coverage Status][cov-img]][cov-url]
+[![Greenkeeper badge](https://badges.greenkeeper.io/haraka/node-address-rfc2822.svg)](https://greenkeeper.io/)
 
 
 address-rfc2822
 ==================
-
-[![Greenkeeper badge](https://badges.greenkeeper.io/haraka/node-address-rfc2822.svg)](https://greenkeeper.io/)
 
 Parser for RFC2822 (Header) format email addresses.
 
