@@ -26,5 +26,8 @@
     "grunt-eslint": "*",
     "nodeunit": "*"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "nearley": "^2.7.11"
+  }
 }
