@@ -1,7 +1,39 @@
 "use strict";
 
-exports.parse = function parse (line) {
+var grammar = {
+    from: require("./lib/from"),
+    sender: require("./lib/sender"),
+    reply_to: require("./lib/reply_to"),
+}
+
+var nearley = require("nearley");
+
+exports.parse = function parse (line, type) {
     if (!line) throw "Nothing to parse";
+
+    type = type || 'from';
+
+    var gr = grammar[type];
+    if (!gr) throw "No such grammar";
+
+    var p = new nearley.Parser(gr.ParserRules, gr.ParserStart);
+
+    try {
+        p.feed(line);
+
+        var results = p.results[0];
+
+        if (!results) throw "No results";
+
+        return results.map(function (r) {
+            console.log("Parsed to: ", r);
+            return new Address(r.display_name, r.local_part + '@' + r.domain, r.comment);
+        });
+    }
+    catch (e) {
+        console.error(e);
+    }
+
 
     var phrase = [];
     var comment = [];
@@ -263,6 +295,9 @@ exports.nameCase = function (string) {
 
 // given a comment, attempt to extract a person's name
 function _extract_name (name) {
+    if (name == null) {
+        return '';
+    }
     // Using encodings, too hard. See Mail::Message::Field::Full.
     if (/\=\?.*?\?\=/.test(name)) return '';
 

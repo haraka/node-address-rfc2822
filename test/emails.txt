@@ -115,11 +115,11 @@ a909937 (Graham Barr          (0004 bodg))
 Graham Barr
 
 a909062@node_cb83.node_cb83 (Colin x Maytum         (0013 bro5))
-a909062@node_cb83.node_cb83 (Colin x Maytum         (0013 bro5))
+a909062@node_cb83.node_cb83 (Colin x Maytum (0013 bro5))
 Colin x Maytum
 
 a909062@node_cb83.node_cb83 (Colin Maytum         (0013 bro5))
-a909062@node_cb83.node_cb83 (Colin Maytum         (0013 bro5))
+a909062@node_cb83.node_cb83 (Colin Maytum (0013 bro5))
 Colin Maytum
 
 Derek.Roskell%dero@msg.ti.com

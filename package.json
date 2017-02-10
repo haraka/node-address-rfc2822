@@ -14,7 +14,8 @@
   ],
   "scripts": {
     "test": "./run_tests",
-    "lint": "grunt lint"
+    "lint": "grunt lint",
+    "prepublish": "grunt build"
   },
   "repository": {
     "type": "git",
