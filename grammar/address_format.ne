@@ -2,37 +2,21 @@
 
 @{% var flatten = require('./flatten.js'); %}
 
-ALPHA          ->  [A-Za-z] {% id %}
-
-CR             ->  "\r" {% id %}
-
-LF             ->  "\n" {% id %}
-
-CRLF           ->  CR LF {% function (d) { return "\r\n" } %}
-
-CTL            ->  [\x00-\x1F\x7F] {% id %}
-
-DIGIT          ->  [\x30-\x39] {% id %}
-
-DQUOTE         ->  "\"" {% id %}
-
-HTAB           ->  "\t" {% id %}
-
-OCTET          ->  [\x00-\xFF] {% id %}
-
-SP             ->  " " {% id %}
-
-VCHAR          ->  [!-~] {% id %}
-
-WSP            ->  SP | HTAB
-
 quoted_pair     ->   "\\" [!-~ \t] {% function (d) { return "\\" + d[1] } %}
 
-qtext           ->   [!#-\[\]-~] {% function (d) { return d[0] } %}
+_qtext           ->   [!#-\[\]-~] {% function (d) { return d[0] } %}
+qtext           ->   [!#-\[\]-~]:+ {% function (d,l,r) {
+    var out = flatten.str(d);
+    if (/\\/.test(out)) return r;
+    // console.log("QT:" +out);
+    return out;
+} %}
 
 qcontent        ->   (qtext | quoted_pair)  {% function (d,l,r) {
-    if (d[0] && d[0][0] == '"') return r; // No quotes allowed
-    return flatten.str(d);
+    var out = flatten.str(d);
+    if (/"/.test(out)) return r;
+    // console.log("QC:" +out);
+    return out;
 } %}
 
 quoted_string   ->   CFWS:? "\"" (FWS:? qcontent):* FWS:? "\"" CFWS:? {% function (d,l,r) {
@@ -51,17 +35,18 @@ dot_atom        ->  CFWS:? dot_atom_text CFWS:? {% function (d) {
     return d[1]
 } %}
 
-word            ->  (atom | quoted_string)  {% function (d) { return flatten.str(d) } %}
+word            ->  atom {% id %} | quoted_string {% id %}
 
-phrase          ->  word:+ {% function (d) { return d[0].join(" ") } %}
-
-unstructured    ->  (FWS:? [!-~]):* WSP:? {% function (d,l,r) { throw "Unimplemented" } %}
+phrase          ->  word:+ {% function (d) {
+    // console.log("PH:", d);
+    return d[0].join(" ");
+} %}
 
 addr_spec       ->   local_part "@" domain {% function (d) {
     // console.log("Addr_spec: ", d);
     return {
-        local_part: d[0][0],
-        domain: d[2][0],
+        local_part: d[0],
+        domain: d[2],
     };
 }%}
 
@@ -74,7 +59,7 @@ domain_literal  ->   CFWS:? "[" (FWS:? dtext):* FWS:? "]" CFWS:? {% function (d)
     return "[" + flatten.str(contents) + (d[3] && d[3][0] == " " ? " " : "") + "]";
 } %}
 
-dtext           ->   [!-Z\^-~] {% id %}
+dtext           ->   [!-Z\^-~]:+ {% function (d) { return d[0].join("") } %}
                    
 address         ->  mailbox {% id %} | group {% id %}
 

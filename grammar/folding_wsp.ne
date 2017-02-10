@@ -1,6 +1,8 @@
-@include "./core_rules.ne"
-
 @{% var flatten = require('./flatten.js'); %}
+
+WSP -> [ \t]
+CRLF -> "\r\n"
+quoted_pair -> "\\" [!-~ \t]
 
 FWS             ->   (WSP:* CRLF):? WSP:+ {% function(d) {return " "; } %}
 
