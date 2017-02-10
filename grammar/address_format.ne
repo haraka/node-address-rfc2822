@@ -1,5 +1,7 @@
 @include "./folding_wsp.ne"
 
+@{% var _flatten = require('./flatten.js').flatten; %}
+
 ALPHA          ->  [A-Za-z] {% id %}
 
 CR             ->  "\r" {% id %}
@@ -24,51 +26,51 @@ VCHAR          ->  [!-~] {% id %}
 
 WSP            ->  SP | HTAB
 
-quoted_pair     ->   "\\" (VCHAR | WSP) {% function (d) { return d[0][1] } %}
+quoted_pair     ->   "\\" [!-~ \t] {% function (d) { return "\\" + d[1] } %}
 
-qtext           ->   [!#-\[\]-~] {% function (d) { return d[0] } %}
+qtext           ->   [!#-\[\]-~] {% function (d) { console.log("QT:",d); return d[0] } %}
 
-qcontent        ->   (qtext | quoted_pair)  {% function (d) { return d[0] || d[1] } %}
+qcontent        ->   qtext | quoted_pair  {% function (d,l,r) {
+    if (d[0] && d[0][0] == '"') return r; // No quotes allowed
+    var out = d[0].join("") || d[1];
+    if (/[^\\]"/.test(out)) return r;
+    return out;
+} %}
 
-quoted_string   ->   CFWS:? "\"" (FWS:? qcontent):* FWS:? "\"" CFWS:? {% function (d) {
+quoted_string   ->   CFWS:? "\"" (FWS:? qcontent):* FWS:? "\"" CFWS:? {% function (d,l,r) {
     var contents = d[2];
     var out = contents.map((c) => {
         if (c[0] == " ") return " " + c[1].join("");
         return c[1].join("")
     });
-    return out.join("") + (d[3][0] == " " ? " " : "");
+    return out.join("") + (d[3] && d[3][0] == " " ? " " : "");
 } %}
 
-atext           ->   [a-zA-Z0-9!#$%&'*+\-\/=?^_`{|}~]:+ {% function (d) {
-    console.log("ATEXT:", d)
-    return d[0].join("")
-} %}
+atom            ->  CFWS:? [a-zA-Z0-9!#$%&'*+\-\/=?^_`{|}~]:+ CFWS:? {% function (d) { console.log("ATOM"); return d[1].join("") } %}
 
-atom            ->  CFWS:? atext CFWS:? {% function (d) { return d[1] } %}
-
-dot_atom_text   ->  (atext ("." atext):*) {% function (d) {
-    return _do(d[0]);
-    function _do (d) {
-        var str = d.shift();
-
-        if (d[0][0]) {
-            str += ".";
-            return str + _do([d[0][0][1],[]]);
-        }
-
-        return str;
+dot_atom_text   ->  [a-zA-Z0-9!#$%&'*+\-\/=?^_`{|}~]:+ ("." [a-zA-Z0-9!#$%&'*+\-\/=?^_`{|}~]:+):* {% function (d) {
+    var str = d[0].join("");
+    if (d[1] && d[1].length) {
+        str += d[1].map((c) => {
+            return ["."].concat(c[1]).join("");
+        }).join("");
     }
+    return str;
 } %}
 
-dot_atom        ->  CFWS:? dot_atom_text CFWS:? {% function (d) { return d[1] } %}
+dot_atom        ->  CFWS:? dot_atom_text CFWS:? {% function (d) {
+    // console.log("DA:", d[1]);
+    return d[1]
+} %}
 
-word            ->  (atom | quoted_string)  {% function (d) { return d[0] || d[1] } %}
+word            ->  atom | quoted_string  {% function (d) { return d[0] || d[1] } %}
 
-phrase          ->  word:+ {% function (d) { return d[0].join("") } %}
+phrase          ->  word:+ {% function (d) { return d[0].join(" ") } %}
 
-unstructured    ->  (FWS:? VCHAR):* WSP:?
+unstructured    ->  (FWS:? [!-~]):* WSP:? {% function (d,l,r) { throw "Unimplemented" } %}
 
 addr_spec       ->   local_part "@" domain {% function (d) {
+    // console.log("Addr_spec: ", d);
     return {
         local_part: d[0][0],
         domain: d[2][0],
@@ -99,7 +101,16 @@ name_addr       ->  display_name:? angle_addr {% function (d) {
 }%}
 
 angle_addr      ->  CFWS:? "<" addr_spec ">" CFWS:? {% function (d) {
-    return d[2];
+    var c0 = _flatten(d[0]).trim();
+    var c1 = _flatten(d[4]).trim();
+    var ret = d[2];
+    if (c0 && c1) {
+        ret.comment = '(' + c0 + ' ' + c1 + ')';
+    }
+    else if (c0 || c1) {
+        ret.comment = c0 || c1;
+    }
+    return ret;
 }%}
 
 group           ->  display_name ":" group_list:? ";" CFWS:?
@@ -107,7 +118,8 @@ group           ->  display_name ":" group_list:? ";" CFWS:?
 display_name    ->  phrase {% function (d) { return d[0]} %}
 
 mailbox_list    ->  mailbox ("," mailbox):* {% function (d) {
-    var list = [d[0][0]];
+    // console.log("MBL:", d);
+    var list = [d[0][0] || d[0]];
     if (d[1] && d[1][0] && d[1][0][0]) {
         // console.log("CONCAT: ", d[1]);
         list = list.concat(d[1].map((c) => c[1][0] || c[1]));
