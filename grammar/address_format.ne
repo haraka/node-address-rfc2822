@@ -66,13 +66,21 @@ phrase          ->  word:+ {% function (d) {
     return d[0].join(" ");
 } %}
 
-addr_spec       ->   local_part "@" domain {% function (d) {
+addr_spec       ->   local_part "@" domain {% function (d,l,r) {
     // console.log("Addr_spec: ", d);
     var comment = comment_combine(d[0].comment, d[2].comment);
     var ret = {
         local_part: d[0],
         domain: d[2],
     };
+    if (ret.domain[0] == "-") {
+        // domains can't start with hyphen
+        return r;
+    }
+    if (/-(\.|$)/.test(ret.domain)) {
+        // domains can't end with hyphen or sub-domain end in one
+        return r;
+    }
     if (comment) {
         ret.comment = comment;
         ret.domain = ret.domain.dot_atom || ret.domain;
@@ -88,8 +96,7 @@ obs_local_part  ->   word ("." word):* {% function (d) { return flatten.str(d) }
 domain          ->   dot_atom {% id %} | domain_literal {% id %} | obs_domain {% id %}
 
 # I added obs_domain in for: ":sysmail"@ Some-Group. Some-Org
-# I also added the final "." dot here for some stupid old obsolete crap.
-obs_domain      ->   atom ("." atom):* ".":? {% function (d) { return flatten.str(d) } %}
+obs_domain      ->   atom ("." atom):* {% function (d) { return flatten.str(d) } %}
 
 domain_literal  ->   CFWS:? "[" (FWS:? dtext):* FWS:? "]" CFWS:? {% function (d) {
     var contents = d[2];
