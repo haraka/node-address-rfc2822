@@ -41,8 +41,7 @@ quoted_string   ->   CFWS:? "\"" (FWS:? qcontent):* FWS:? "\"" CFWS:? {% functio
 
 atom            ->  CFWS:? [a-zA-Z0-9!#$%&'*+\-\/=?^_`{|}~]:+ CFWS:? {% function (d) { return d[1].join("") } %}
 
-# Note the last "dot" here is not included in the RFC... I added it for the tests
-dot_atom_text   ->  [a-zA-Z0-9!#$%&'*+\-\/=?^_`{|}~]:+ ("." [a-zA-Z0-9!#$%&'*+\-\/=?^_`{|}~]:+):* ".":? {% function (d) {
+dot_atom_text   ->  [a-zA-Z0-9!#$%&'*+\-\/=?^_`{|}~]:+ ("." [a-zA-Z0-9!#$%&'*+\-\/=?^_`{|}~]:+):* {% function (d) {
     return flatten.str(d);
 } %}
 
@@ -89,7 +88,8 @@ obs_local_part  ->   word ("." word):* {% function (d) { return flatten.str(d) }
 domain          ->   dot_atom {% id %} | domain_literal {% id %} | obs_domain {% id %}
 
 # I added obs_domain in for: ":sysmail"@ Some-Group. Some-Org
-obs_domain      ->   atom ("." atom):* {% function (d) { return flatten.str(d) } %}
+# I also added the final "." dot here for some stupid old obsolete crap.
+obs_domain      ->   atom ("." atom):* ".":? {% function (d) { return flatten.str(d) } %}
 
 domain_literal  ->   CFWS:? "[" (FWS:? dtext):* FWS:? "]" CFWS:? {% function (d) {
     var contents = d[2];
