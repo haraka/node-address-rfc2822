@@ -1,11 +1,6 @@
 "use strict";
 
-var grammar = {
-    from: require("./lib/from"),
-    sender: require("./lib/sender"),
-    reply_to: require("./lib/reply_to"),
-}
-
+var grammar = require("./lib/address_format");
 var nearley = require("nearley");
 
 exports.parse = function parse (line, type) {
@@ -13,10 +8,7 @@ exports.parse = function parse (line, type) {
 
     type = type || 'from';
 
-    var gr = grammar[type];
-    if (!gr) throw "No such grammar";
-
-    var p = new nearley.Parser(gr.ParserRules, gr.ParserStart);
+    var p = new nearley.Parser(grammar.ParserRules, type);
 
     try {
         p.feed(line);
@@ -26,8 +18,15 @@ exports.parse = function parse (line, type) {
         if (!results) throw "No results";
 
         return results.map(function (r) {
-            console.log("Parsed to: ", r);
-            return new Address(r.display_name, r.local_part + '@' + r.domain, r.comment);
+            // console.log("Parsed to: ", r);
+            if (r.groups) {
+                return new Group(r.display_name, r.groups.map(function (g) {
+                    return new Address(g.display_name, g.local_part + '@' + g.domain, g.comment);
+                }));
+            }
+            var l = r.local_part;
+            if (!r.display_name && /:/.test(l)) l = '"' + l + '"';
+            return new Address(r.display_name, l + '@' + r.domain, r.comment);
         });
     }
     catch (e) {
@@ -166,6 +165,26 @@ function _complete (phrase, address, comment) {
         return null;
 
     return new Address (phrase.join(' '), address.join(''), comment.join(' '));
+}
+
+function Group (display_name, addresses) {
+    this.phrase = display_name;
+    this.addresses = addresses;
+}
+
+Group.prototype.format = function () {
+    return this.phrase + ":" + this.addresses.map(function (a) { return a.format() }).join(',');
+}
+
+Group.prototype.name = function () {
+    var phrase = this.phrase;
+
+    if (!(phrase && phrase.length)) {
+        phrase = this.comment;
+    }
+
+    var name = _extract_name(phrase);
+    return name;
 }
 
 function Address (phrase, address, comment) {

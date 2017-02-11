@@ -16,7 +16,7 @@ module.exports = function(grunt) {
             }
         },
         nearley: {
-            src: ['grammar/from.ne', 'grammar/sender.ne', 'grammar/reply_to.ne'],
+            src: ['grammar/address_format.ne'],
             out: 'lib',
         }
     });
