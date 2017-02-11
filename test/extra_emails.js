@@ -10,7 +10,10 @@ emails.tests.test.forEach(function (test) {
     exports.extra_emails[test['-id'] + ': ' + (test.address || 'blank')] = function (t) {
         t.expect(1);
         try {
+<<<<<<< HEAD
             /*eslint no-unused-vars:0 */
+=======
+>>>>>>> Added the extra tests msimerson asked for
             var parsed = parse(test.address || '')[0];
             t.ok(test.category != 'ISEMAIL_ERR');
         }
