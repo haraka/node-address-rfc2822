@@ -4,11 +4,10 @@ node_js:
     - "6"
 
 before_script:
-    - npm install -g grunt-cli
 
 script:
-    - grunt lint
-    - node run_tests
+    - npm run lint
+    - npm test
 
 after_success:
     - npm install istanbul codecov.io
