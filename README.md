@@ -1,7 +1,9 @@
 [![Build Status][ci-img]][ci-url]
-[![Dependencies][dep-img]][dep-url]
+[![Win Build status][ci-win-img]][ci-win-url]
+[![Code Climate][clim-img]][clim-url]
 [![Coverage Status][cov-img]][cov-url]
-[![Greenkeeper badge](https://badges.greenkeeper.io/haraka/node-address-rfc2822.svg)](https://greenkeeper.io/)
+[![Dependencies][dep-img]][dep-url]
+[![Greenkeeper badge][gk-img]][gk-url]
 
 
 address-rfc2822
@@ -46,10 +48,16 @@ License
 This module is MIT licensed.
 
 
+
 [ci-img]: https://travis-ci.org/haraka/node-address-rfc2822.svg?branch=master
 [ci-url]: https://travis-ci.org/haraka/node-address-rfc2822
+[ci-win-img]: https://ci.appveyor.com/api/projects/status/pmk70rocg0hqv5am?svg=true
+[ci-win-url]: https://ci.appveyor.com/project/msimerson/node-address-rfc2822
 [dep-img]: https://david-dm.org/haraka/node-address-rfc2822.svg
 [dep-url]: https://david-dm.org/haraka/node-address-rfc2822
 [cov-img]: https://codecov.io/github/haraka/node-address-rfc2822/coverage.svg
 [cov-url]: https://codecov.io/github/haraka/node-address-rfc2822?branch=master
-
+[clim-img]: https://codeclimate.com/github/haraka/haraka-plugin-template/badges/gpa.svg
+[clim-url]: https://codeclimate.com/github/haraka/haraka-plugin-template
+[gk-img]: https://badges.greenkeeper.io/haraka/node-address-rfc2822.svg
+[gk-url]: https://greenkeeper.io/

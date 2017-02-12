@@ -13,8 +13,8 @@
     "from"
   ],
   "scripts": {
-    "test": "./run_tests",
-    "lint": "grunt lint",
+    "test": "node run_tests",
+    "lint": "./node_modules/.bin/eslint *.js test/*.js",
     "prepublish": "grunt build"
   },
   "repository": {
@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "eslint": "*",
+    "eslint-plugin-haraka": "*",
     "grunt": "*",
     "grunt-eslint": "*",
     "nodeunit": "*"
