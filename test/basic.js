@@ -1,6 +1,6 @@
 var parse = require('../index').parse;
 
-function _check(test, line, details) {
+function _check (test, line, details) {
     test.expect(Object.keys(details).length);
     var parsed = parse(line)[0];
     // console.log("Parsed: ", parsed);
