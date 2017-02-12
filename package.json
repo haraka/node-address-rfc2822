@@ -14,7 +14,8 @@
   ],
   "scripts": {
     "test": "./run_tests",
-    "lint": "grunt lint"
+    "lint": "grunt lint",
+    "prepublish": "grunt build"
   },
   "repository": {
     "type": "git",
@@ -26,5 +27,8 @@
     "grunt-eslint": "*",
     "nodeunit": "*"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "nearley": "^2.7.11"
+  }
 }
