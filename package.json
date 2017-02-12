@@ -13,8 +13,9 @@
     "from"
   ],
   "scripts": {
-    "test": "./run_tests",
-    "lint": "grunt lint"
+    "test": "node run_tests",
+    "lint": "./node_modules/.bin/eslint *.js test/*.js",
+    "prepublish": "grunt build"
   },
   "repository": {
     "type": "git",
@@ -22,9 +23,13 @@
   },
   "devDependencies": {
     "eslint": "*",
+    "eslint-plugin-haraka": "*",
     "grunt": "*",
     "grunt-eslint": "*",
     "nodeunit": "*"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "nearley": "^2.7.11"
+  }
 }
