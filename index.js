@@ -56,13 +56,13 @@ function Address (phrase, address, comment) {
 }
 
 Address.prototype.host = function () {
-    var match = /.*@(.*)$/.exec(this.address);
+    let match = /.*@(.*)$/.exec(this.address);
     if (!match) return null;
     return match[1];
 }
 
 Address.prototype.user = function () {
-    var match = /^(.*)@/.exec(this.address);
+    let match = /^(.*)@/.exec(this.address);
     if (!match) return null;
     return match[1];
 }
@@ -71,8 +71,8 @@ Address.prototype.user = function () {
 // zero-width negative look-behind assertion for: /(?<!\\)"/
 function _quote_no_esc (str) {
     if (/^"/.test(str)) return true;
-    var match;
-    while (match = /^[\s\S]*?([\s\S])"/.exec(str)) {
+    let match;
+    while ((match = /^[\s\S]*?([\s\S])"/.exec(str))) {
         if (match[1] !== '\\') {
             return true;
         }
@@ -126,7 +126,7 @@ Address.prototype.name = function () {
 
     // first.last@domain address
     if (name === '') {
-        var match = /([^\%\.\@_]+([\._][^\%\.\@_]+)+)[\@\%]/.exec(addr);
+        let match = /([^\%\.\@_]+([\._][^\%\.\@_]+)+)[\@\%]/.exec(addr);
         if (match) {
             name  = match[1].replace(/[\._]+/g, ' ');
             name  = _extract_name(name);
@@ -134,7 +134,7 @@ Address.prototype.name = function () {
     }
 
     if (name === '' && /\/g=/i.test(addr)) {    // X400 style address
-        var match = /\/g=([^\/]*)/i.exec(addr);
+        let match = /\/g=([^\/]*)/i.exec(addr);
         var f = match[1];
         match = /\/s=([^\/]*)/i.exec(addr);
         var l = match[1];
