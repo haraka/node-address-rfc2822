@@ -51,8 +51,8 @@ This module is MIT licensed.
 
 [ci-img]: https://travis-ci.org/haraka/node-address-rfc2822.svg?branch=master
 [ci-url]: https://travis-ci.org/haraka/node-address-rfc2822
-[ci-win-img]: https://ci.appveyor.com/api/projects/status/pmk70rocg0hqv5am?svg=true
-[ci-win-url]: https://ci.appveyor.com/project/msimerson/node-address-rfc2822
+[ci-win-img]: https://ci.appveyor.com/api/projects/status/hj1ggvutj3m6a2yk?svg=true
+[ci-win-url]: https://ci.appveyor.com/project/msimerson/node-address-rfc2822-n5mwj
 [dep-img]: https://david-dm.org/haraka/node-address-rfc2822.svg
 [dep-url]: https://david-dm.org/haraka/node-address-rfc2822
 [cov-img]: https://codecov.io/github/haraka/node-address-rfc2822/coverage.svg
