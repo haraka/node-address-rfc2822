@@ -2,7 +2,7 @@ var parse = require('../index').parse;
 
 
 var fs = require('fs');
-var emails = JSON.parse(fs.readFileSync(__dirname + "/extra_emails.json", {encoding: 'utf8'}));
+var emails = JSON.parse(fs.readFileSync(__dirname + "/is_email.json", {encoding: 'utf8'}));
 
 exports.extra_emails = {};
 
@@ -10,10 +10,7 @@ emails.tests.test.forEach(function (test) {
     exports.extra_emails[test['-id'] + ': ' + (test.address || 'blank')] = function (t) {
         t.expect(1);
         try {
-<<<<<<< HEAD
             /*eslint no-unused-vars:0 */
-=======
->>>>>>> Added the extra tests msimerson asked for
             var parsed = parse(test.address || '')[0];
             t.ok(test.category != 'ISEMAIL_ERR');
         }
