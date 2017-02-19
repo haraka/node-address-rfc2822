@@ -1,52 +1,139 @@
 "use strict";
 
-var grammar = require("./lib/address_format");
-var nearley = require("nearley");
-
-exports.parse = function parse (line, type) {
+exports.parse = function parse (line) {
     if (!line) throw "Nothing to parse";
 
-    type = type || 'from';
+    var phrase = [];
+    var comment = [];
+    var address = [];
+    var objs = [];
+    var depth = 0;
 
-    var p = new nearley.Parser(grammar.ParserRules, type);
+    var tokens  = _tokenise(line);
+    var next    = _find_next(0, tokens);
 
-    p.feed(line);
+    // console.log("Tokens: ", tokens);
 
-    var results = p.results[0];
+    for (var i = 0; i < tokens.length; i++) {
+        var token = tokens[i];
 
-    if (!results) throw "No results";
-
-    return results.map(function (r) {
-        // console.log("Parsed to: ", r);
-        if (r.groups) {
-            return new Group(r.display_name, r.groups.map(function (g) {
-                return new Address(g.display_name, g.local_part + '@' + g.domain, g.comment);
-            }));
+        if (token.substr(0,1) === '(')   { comment.push(token) }
+        else if (token === '<')          { depth++ }
+        else if (token === '>' && depth) { depth-- }
+        else if (token === ',' || token === ';') {
+            if (depth) {
+                console.warn("Unmatched '<>' in " + line);
+            }
+            var o = _complete(phrase, address, comment);
+            if (o) {
+                objs.push(o);
+                phrase = [], comment = [], address = [];
+            }
+            depth = 0;
+            next = _find_next(i+1, tokens);
         }
-        var l = r.local_part;
-        if (!r.display_name && /:/.test(l)) l = '"' + l + '"';
-        return new Address(r.display_name, l + '@' + r.domain, r.comment);
-    });
+        else if (depth)        { address.push(token) }
+        else if (next === '<') { phrase.push(token) }
+        else if ( /^[.\@:;]$/.test(token) ||
+                    address.length === 0  ||
+                    /^[.\@:;]$/.test(address[address.length - 1]) )
+        {
+            address.push(token);
+        }
+        else {
+            if (depth) {
+                console.warn("Unmatched '<>' in " + line);
+            }
+            var o = _complete(phrase, address, comment);
+            if (o) {
+                objs.push(o);
+                phrase = [], comment = [], address = [];
+            }
+            depth = 0;
+            address.push(token);
+        }
+    }
+    return objs;
 }
 
-function Group (display_name, addresses) {
-    this.phrase = display_name;
-    this.addresses = addresses;
-}
+function _tokenise (line) {
+    var words = [];
+    var field = '';
+    var match;
 
-Group.prototype.format = function () {
-    return this.phrase + ":" + this.addresses.map(function (a) { return a.format() }).join(',');
-}
+    line = line.replace(/^\s+/, '');
+    line = line.replace(/[\r\n]+/g, ' ');
 
-Group.prototype.name = function () {
-    var phrase = this.phrase;
+    while (line !== '') {
+        field = '';
+        if (match = /^\s*\(/.exec(line)) {
+            line = line.substr(match[0].length - 1);
+            var depth = 0;
 
-    if (!(phrase && phrase.length)) {
-        phrase = this.comment;
+            PAREN:
+            while (match = /^(\(([^\(\)\\]|\\.)*)/.exec(line)) {
+                line = line.substr(match[0].length);
+                field += match[1];
+                depth++;
+
+                while (match = /^(([^\(\)\\]|\\.)*\)\s*)/.exec(line)) {
+                    line = line.substr(match[0].length);
+                    field += match[1];
+                    depth--;
+                    if (!depth) {
+                        break PAREN;
+                    }
+                    if (match = /^(([^\(\)\\]|\\.)+)/.exec(line)) {
+                        line = line.substr(match[0].length);
+                        field += match[1];
+                    }
+                }
+            }
+
+            if (depth) {
+                console.warn("Unmatched () '" + field + "' '" + line + "'");
+            }
+
+            field = field.replace(/\s+$/, '');
+            words.push(field);
+
+            continue;
+        }
+
+
+        match = /^("(?:[^"\\]|\\.)*")\s*/.exec(line) ||
+                /^(\[(?:[^\]\\]|\\.)*\])\s*/.exec(line) ||
+                /^([^\s()<>\@,;:\\".[\]]+)\s*/.exec(line) ||
+                /^([()<>\@,;:\\".[\]])\s*/.exec(line);
+        if (match) {
+            line = line.substr(match[0].length);
+            words.push(match[1]);
+            continue;
+        }
+
+        throw "Unrecognised line: " + line;
     }
 
-    var name = _extract_name(phrase);
-    return name;
+    words.push(",");
+    return words;
+}
+
+function _find_next (index, tokens) {
+    while (index < tokens.length) {
+        var c = tokens[index];
+        if (c === ',' || c === ';' || c === '<') {
+            return c;
+        }
+        index++;
+    }
+    return '';
+}
+
+function _complete (phrase, address, comment) {
+    if (phrase.length === 0 && comment.length === 0 && address.length === 0)
+        return null;
+
+    return new Address (phrase.join(' '), address.join(''), comment.join(' '));
 }
 
 function Address (phrase, address, comment) {
@@ -176,9 +263,6 @@ exports.nameCase = function (string) {
 
 // given a comment, attempt to extract a person's name
 function _extract_name (name) {
-    if (name == null) {
-        return '';
-    }
     // Using encodings, too hard. See Mail::Message::Field::Full.
     if (/\=\?.*?\?\=/.test(name)) return '';
 
