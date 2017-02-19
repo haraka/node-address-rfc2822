@@ -24,7 +24,7 @@ exports.parse = function parse (line) {
             if (depth) {
                 console.warn("Unmatched '<>' in " + line);
             }
-            var o = _complete(phrase, address, comment);
+            let o = _complete(phrase, address, comment);
             if (o) {
                 objs.push(o);
                 phrase = [], comment = [], address = [];
@@ -44,7 +44,7 @@ exports.parse = function parse (line) {
             if (depth) {
                 console.warn("Unmatched '<>' in " + line);
             }
-            var o = _complete(phrase, address, comment);
+            let o = _complete(phrase, address, comment);
             if (o) {
                 objs.push(o);
                 phrase = [], comment = [], address = [];
@@ -66,24 +66,24 @@ function _tokenise (line) {
 
     while (line !== '') {
         field = '';
-        if (match = /^\s*\(/.exec(line)) {
+        if ((match = /^\s*\(/.exec(line))) {
             line = line.substr(match[0].length - 1);
             var depth = 0;
 
             PAREN:
-            while (match = /^(\(([^\(\)\\]|\\.)*)/.exec(line)) {
+            while ((match = /^(\(([^\(\)\\]|\\.)*)/.exec(line))) {
                 line = line.substr(match[0].length);
                 field += match[1];
                 depth++;
 
-                while (match = /^(([^\(\)\\]|\\.)*\)\s*)/.exec(line)) {
+                while ((match = /^(([^\(\)\\]|\\.)*\)\s*)/.exec(line))) {
                     line = line.substr(match[0].length);
                     field += match[1];
                     depth--;
                     if (!depth) {
                         break PAREN;
                     }
-                    if (match = /^(([^\(\)\\]|\\.)+)/.exec(line)) {
+                    if ((match = /^(([^\(\)\\]|\\.)+)/.exec(line))) {
                         line = line.substr(match[0].length);
                         field += match[1];
                     }
