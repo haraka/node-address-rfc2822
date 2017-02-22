@@ -13,9 +13,9 @@ function _check (test, line, details) {
 var raw_data = require('fs').readFileSync(__dirname + '/emails.txt', "UTF-8");
 
 var tests = raw_data.split(/\n\n/).map(function (rows) {
-    var lines = rows.split(/\n/);
-    if (lines[0] === '') lines.shift();
-    return lines.filter(function (l) { return !/^#/.test(l) });
+    var test = rows.split(/\n/);
+    if (test[0] === '') test.shift();
+    return test;
 });
 
 exports.basic = {};

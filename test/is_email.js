@@ -2,7 +2,7 @@ var parse = require('../index').parse;
 
 
 var fs = require('fs');
-var emails = JSON.parse(fs.readFileSync(__dirname + "/extra_emails.json", {encoding: 'utf8'}));
+var emails = JSON.parse(fs.readFileSync(__dirname + "/is_email.json", {encoding: 'utf8'}));
 
 exports.extra_emails = {};
 
