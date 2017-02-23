@@ -17,7 +17,7 @@ exports.parse = function parse (line) {
         throw "No results";
     }
     
-    console.log("Parsed to: ", require('util').inspect(addr.addresses, {depth: null, colors: true}));
+    // console.log("Parsed to: ", require('util').inspect(addr.addresses, {depth: null, colors: true}));
     
     return addr.addresses.map(function (adr) {
         var comments;
