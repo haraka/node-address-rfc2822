@@ -4,7 +4,7 @@ var ea_lib = require("email-addresses");
 
 exports.parse = function parse (line) {
     if (!line) throw "Nothing to parse";
-    
+
     var addr = ea_lib({
         input: line,
         rfc6532: true, // unicode
@@ -16,9 +16,9 @@ exports.parse = function parse (line) {
     if (!addr) {
         throw "No results";
     }
-    
+
     // console.log("Parsed to: ", require('util').inspect(addr.addresses, {depth: null, colors: true}));
-    
+
     return addr.addresses.map(function (adr) {
         var comments;
         if (adr.parts.comments) {
