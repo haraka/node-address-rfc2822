@@ -17,4 +17,6 @@ catch (e) {
 }
 
 process.chdir(__dirname);
-reporter.run(['test']);
+reporter.run(['test'], undefined, function (err) {
+    process.exit(((err) ? 1 : 0));
+});
