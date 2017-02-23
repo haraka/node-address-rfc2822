@@ -27,5 +27,8 @@
     "eslint-plugin-haraka": "*",
     "nodeunit": "*"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "email-addresses": "^2.0.2"
+  }
 }

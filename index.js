@@ -1,139 +1,56 @@
 "use strict";
 
+var ea_lib = require("email-addresses");
+
 exports.parse = function parse (line) {
     if (!line) throw "Nothing to parse";
-
-    var phrase = [];
-    var comment = [];
-    var address = [];
-    var objs = [];
-    var depth = 0;
-
-    var tokens  = _tokenise(line);
-    var next    = _find_next(0, tokens);
-
-    // console.log("Tokens: ", tokens);
-
-    for (var i = 0; i < tokens.length; i++) {
-        var token = tokens[i];
-
-        if (token.substr(0,1) === '(')   { comment.push(token) }
-        else if (token === '<')          { depth++ }
-        else if (token === '>' && depth) { depth-- }
-        else if (token === ',' || token === ';') {
-            if (depth) {
-                console.warn("Unmatched '<>' in " + line);
-            }
-            let o = _complete(phrase, address, comment);
-            if (o) {
-                objs.push(o);
-                phrase = [], comment = [], address = [];
-            }
-            depth = 0;
-            next = _find_next(i+1, tokens);
-        }
-        else if (depth)        { address.push(token) }
-        else if (next === '<') { phrase.push(token) }
-        else if ( /^[.\@:;]$/.test(token) ||
-                    address.length === 0  ||
-                    /^[.\@:;]$/.test(address[address.length - 1]) )
-        {
-            address.push(token);
-        }
-        else {
-            if (depth) {
-                console.warn("Unmatched '<>' in " + line);
-            }
-            let o = _complete(phrase, address, comment);
-            if (o) {
-                objs.push(o);
-                phrase = [], comment = [], address = [];
-            }
-            depth = 0;
-            address.push(token);
-        }
+    
+    var addr = ea_lib({
+        input: line,
+        rfc6532: true, // unicode
+        partial: false, // return failed parses
+        simple: false, // simple AST
+        strict: false, // turn off obs- features in the rfc
+        rejectTLD: false, // domains require a "."
+    });
+    if (!addr) {
+        throw "No results";
     }
-    return objs;
+    
+    console.log("Parsed to: ", require('util').inspect(addr.addresses, {depth: null, colors: true}));
+    
+    return addr.addresses.map(function (adr) {
+        var comments;
+        if (adr.parts.comments) {
+            comments = adr.parts.comments.map(function (c) { return c.tokens.trim() }).join(' ').trim();
+            // if (comments.length) {
+            //     comments = '(' + comments + ')';
+            // }
+        }
+        var l = adr.local;
+        if (!adr.name && /:/.test(l)) l = '"' + l + '"';
+        return new Address(adr.name, l + '@' + adr.domain, comments);
+    })
 }
 
-function _tokenise (line) {
-    var words = [];
-    var field = '';
-    var match;
-
-    line = line.replace(/^\s+/, '');
-    line = line.replace(/[\r\n]+/g, ' ');
-
-    while (line !== '') {
-        field = '';
-        if ((match = /^\s*\(/.exec(line))) {
-            line = line.substr(match[0].length - 1);
-            var depth = 0;
-
-            PAREN:
-            while ((match = /^(\(([^\(\)\\]|\\.)*)/.exec(line))) {
-                line = line.substr(match[0].length);
-                field += match[1];
-                depth++;
-
-                while ((match = /^(([^\(\)\\]|\\.)*\)\s*)/.exec(line))) {
-                    line = line.substr(match[0].length);
-                    field += match[1];
-                    depth--;
-                    if (!depth) {
-                        break PAREN;
-                    }
-                    if ((match = /^(([^\(\)\\]|\\.)+)/.exec(line))) {
-                        line = line.substr(match[0].length);
-                        field += match[1];
-                    }
-                }
-            }
-
-            if (depth) {
-                console.warn("Unmatched () '" + field + "' '" + line + "'");
-            }
-
-            field = field.replace(/\s+$/, '');
-            words.push(field);
-
-            continue;
-        }
-
-
-        match = /^("(?:[^"\\]|\\.)*")\s*/.exec(line) ||
-                /^(\[(?:[^\]\\]|\\.)*\])\s*/.exec(line) ||
-                /^([^\s()<>\@,;:\\".[\]]+)\s*/.exec(line) ||
-                /^([()<>\@,;:\\".[\]])\s*/.exec(line);
-        if (match) {
-            line = line.substr(match[0].length);
-            words.push(match[1]);
-            continue;
-        }
-
-        throw "Unrecognised line: " + line;
-    }
-
-    words.push(",");
-    return words;
+function Group (display_name, addresses) {
+    this.phrase = display_name;
+    this.addresses = addresses;
 }
 
-function _find_next (index, tokens) {
-    while (index < tokens.length) {
-        var c = tokens[index];
-        if (c === ',' || c === ';' || c === '<') {
-            return c;
-        }
-        index++;
-    }
-    return '';
+Group.prototype.format = function () {
+    return this.phrase + ":" + this.addresses.map(function (a) { return a.format() }).join(',');
 }
 
-function _complete (phrase, address, comment) {
-    if (phrase.length === 0 && comment.length === 0 && address.length === 0)
-        return null;
+Group.prototype.name = function () {
+    var phrase = this.phrase;
 
-    return new Address (phrase.join(' '), address.join(''), comment.join(' '));
+    if (!(phrase && phrase.length)) {
+        phrase = this.comment;
+    }
+
+    var name = _extract_name(phrase);
+    return name;
 }
 
 function Address (phrase, address, comment) {
