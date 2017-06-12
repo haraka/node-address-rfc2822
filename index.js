@@ -2,7 +2,7 @@
 
 var ea_lib = require("email-addresses");
 
-exports.parse = function parse (line) {
+exports.parse = function parse (line, startAt) {
     if (!line) throw "Nothing to parse";
 
     var addr = ea_lib({
@@ -12,14 +12,20 @@ exports.parse = function parse (line) {
         simple: false, // simple AST
         strict: false, // turn off obs- features in the rfc
         rejectTLD: false, // domains require a "."
+        startAt: startAt || null,
     });
     if (!addr) {
         throw "No results";
     }
 
-    // console.log("Parsed to: ", require('util').inspect(addr.addresses, {depth: null, colors: true}));
+    // console.log("Parsed to: ", require('util').inspect(addr, {depth: 10, colors: true}));
 
-    return addr.addresses.map(function (adr) {
+    return addr.addresses.map(map_addresses);
+
+    function map_addresses (adr) {
+        if (adr.type === 'group') {
+            return new Group(adr.name, adr.addresses.map(map_addresses));
+        }
         var comments;
         if (adr.parts.comments) {
             comments = adr.parts.comments.map(function (c) { return c.tokens.trim() }).join(' ').trim();
@@ -30,7 +36,19 @@ exports.parse = function parse (line) {
         var l = adr.local;
         if (!adr.name && /:/.test(l)) l = '"' + l + '"';
         return new Address(adr.name, l + '@' + adr.domain, comments);
-    })
+    }
+}
+
+exports.parseFrom = function (line) {
+    exports.parse(line, 'from');
+}
+
+exports.parseSender = function (line) {
+    exports.parse(line, 'sender');
+}
+
+exports.parseReplyTo = function (line) {
+    exports.parse(line, 'reply-to');
 }
 
 function Group (display_name, addresses) {
@@ -54,9 +72,9 @@ Group.prototype.name = function () {
 }
 
 function Address (phrase, address, comment) {
-    this.phrase  = phrase;
-    this.address = address;
-    this.comment = comment;
+    this.phrase  = phrase || '';
+    this.address = address || '';
+    this.comment = comment || '';
 }
 
 Address.prototype.host = function () {
