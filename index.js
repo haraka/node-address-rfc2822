@@ -178,7 +178,7 @@ Address.prototype.format = function () {
 
     if (phrase && phrase.length) {
         addr.push(atext.test(phrase) ? phrase
-                : _quote_no_esc(phrase) ? phrase
+            : _quote_no_esc(phrase) ? phrase
                 : ('"' + phrase + '"'));
 
         if (email && email.length) {
@@ -191,7 +191,7 @@ Address.prototype.format = function () {
 
     if (comment && /\S/.test(comment)) {
         comment = comment.replace(/^\s*\(?/, '(')
-                        .replace(/\)?\s*$/, ')');
+            .replace(/\)?\s*$/, ')');
     }
 
     if (comment && comment.length) {
@@ -274,12 +274,12 @@ function _extract_name (name) {
     if (/^[\d ]+$/.test(name)) return '';
 
     name = name.replace(/^\((.*)\)$/, '$1') // remove outermost parenthesis
-                .replace(/^"(.*)"$/, '$1')  // remove outer quotation marks
-                .replace(/\(.*?\)/g, '')    // remove minimal embedded comments
-                .replace(/\\/g, '')         // remove all escapes
-                .replace(/^"(.*)"$/, '$1')  // remove internal quotation marks
-                .replace(/^([^\s]+) ?, ?(.*)$/, '$2 $1') // reverse "Last, First M." if applicable
-                .replace(/,.*/, '');
+        .replace(/^"(.*)"$/, '$1')  // remove outer quotation marks
+        .replace(/\(.*?\)/g, '')    // remove minimal embedded comments
+        .replace(/\\/g, '')         // remove all escapes
+        .replace(/^"(.*)"$/, '$1')  // remove internal quotation marks
+        .replace(/^([^\s]+) ?, ?(.*)$/, '$2 $1') // reverse "Last, First M." if applicable
+        .replace(/,.*/, '');
 
     // Change casing only when the name contains only upper or only
     // lower cased characters.
@@ -291,8 +291,8 @@ function _extract_name (name) {
 
     // some cleanup
     name = name.replace(/\[[^\]]*\]/g, '')
-                .replace(/(^[\s'"]+|[\s'"]+$)/g, '')
-                .replace(/\s{2,}/g, ' ');
+        .replace(/(^[\s'"]+|[\s'"]+$)/g, '')
+        .replace(/\s{2,}/g, ' ');
 
     return name;
 }
