@@ -1,8 +1,8 @@
 
-## 1.1.0 - 2017-02-__
+## 1.0.2 - 2016-06-16
 
-- replaced parser with 'nearley'
-
+- use email-addresses for parser
+- updated for eslint 4 compat
 
 ## 1.0.1 - 2016-09-23
 
