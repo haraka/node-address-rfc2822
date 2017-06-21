@@ -29,6 +29,6 @@
   },
   "license": "MIT",
   "dependencies": {
-    "email-addresses": "^2.0.2"
+    "email-addresses": "^3.0.0"
   }
 }
