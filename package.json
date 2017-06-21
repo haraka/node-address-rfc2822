@@ -1,6 +1,6 @@
 {
   "name": "address-rfc2822",
-  "version": "1.0.2",
+  "version": "2.0.0",
   "description": "RFC 2822 (Header) email address parser",
   "main": "index.js",
   "homepage": "https://github.com/haraka/node-address-rfc2822",
@@ -27,5 +27,8 @@
     "eslint-plugin-haraka": "*",
     "nodeunit": "*"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "email-addresses": "^3.0.0"
+  }
 }

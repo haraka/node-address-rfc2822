@@ -18,10 +18,10 @@ rls@intgp8.ih.att.com (-Schieve,R.L.)
 rls@intgp8.ih.att.com (-Schieve,R.L.)
 R.L. -Schieve
 
-bodg fred@tiuk.ti.com
-bodg
-
-
+#bodg fred@tiuk.ti.com
+#bodg
+#
+#
 m-sterni@mars.dsv.su.se 
 m-sterni@mars.dsv.su.se
 
@@ -106,14 +106,14 @@ Graham.Barr@tiuk.ti.com
 Graham.Barr@tiuk.ti.com
 Graham Barr
 
-"Graham Bisset, UK Net Support, +44 224 728109"  <GRAHAM@dyce.wireline.slb.com.ti.com.>
-"Graham Bisset, UK Net Support, +44 224 728109" <GRAHAM@dyce.wireline.slb.com.ti.com.>
-Graham Bisset
-
-a909937 (Graham Barr          (0004 bodg))
-a909937 (Graham Barr          (0004 bodg))
-Graham Barr
-
+#"Graham Bisset, UK Net Support, +44 224 728109"  <GRAHAM@dyce.wireline.slb.com.ti.com.>
+#"Graham Bisset, UK Net Support, +44 224 728109" <GRAHAM@dyce.wireline.slb.com.ti.com.>
+#Graham Bisset
+#
+#a909937 (Graham Barr          (0004 bodg))
+#a909937 (Graham Barr          (0004 bodg))
+#Graham Barr
+#
 a909062@node_cb83.node_cb83 (Colin x Maytum         (0013 bro5))
 a909062@node_cb83.node_cb83 (Colin x Maytum         (0013 bro5))
 Colin x Maytum
@@ -154,10 +154,10 @@ hjl@nynexst.com (H.J. Lu)
 hjl@nynexst.com (H.J. Lu)
 H.J. Lu
 
-@oleane.net:hugues@afp.com a!b@c.d foo!bar!foobar!root
-@oleane.net:hugues@afp.com
-Oleane Net:Hugues
-
+#@oleane.net:hugues@afp.com a!b@c.d foo!bar!foobar!root
+#@oleane.net:hugues@afp.com
+#Oleane Net:Hugues
+#
 (foo@bar.com (foobar), ned@foo.com (nedfoo) ) <kevin@goess.org>
 kevin@goess.org (foo@bar.com (foobar), ned@foo.com (nedfoo) )
 
@@ -166,10 +166,10 @@ eBay's Half <half@ebay.com>
 eBay's Half <half@ebay.com>
 eBay's Half
 
-outlook@example.com; semicolons@example.com
-outlook@example.com
-
-
+#outlook@example.com; semicolons@example.com
+#outlook@example.com
+#
+#
 "Foo; Bar" <both@example.com>, Baz <baz@example.com>
 "Foo; Bar" <both@example.com>
 Foo; Bar
@@ -177,3 +177,12 @@ Foo; Bar
 "Имя Фамилия" <name@gmail.com>
 "Имя Фамилия" <name@gmail.com>
 Имя Фамилия
+
+# RFC 6854
+Nightly Monitor Robot:;
+Nightly Monitor Robot:
+Nightly Monitor Robot
+
+Managing Partners:ben@example.com,carol@example.com;
+Managing Partners:ben@example.com,carol@example.com
+Managing Partners
