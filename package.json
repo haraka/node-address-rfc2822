@@ -15,8 +15,8 @@
   "scripts": {
     "test": "node run_tests",
     "lint": "./node_modules/.bin/eslint *.js test/*.js",
-    "cover": "./node_modules/.bin/istanbul cov run_tests",
-    "compile": "./node_modules/.bin/nearleyc grammar/address_format.ne -o lib/address_format.js"
+    "lintfix": "./node_modules/.bin/eslint --fix *.js test/*.js",
+    "cover": "./node_modules/.bin/istanbul cov run_tests"
   },
   "repository": {
     "type": "git",

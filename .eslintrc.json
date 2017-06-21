@@ -6,6 +6,6 @@
   "root": true,
   "rules": {
     "indent": [2, 4, {"SwitchCase": 1}],
-    "no-console": 0
+    "no-useless-escape": 0
   }
 }
