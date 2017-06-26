@@ -5,6 +5,8 @@ var ea_lib = require("email-addresses");
 exports.parse = function parse (line, startAt) {
     if (!line) throw "Nothing to parse";
 
+    line = line.trim();
+
     var addr = ea_lib({
         input: line,
         rfc6532: true, // unicode
