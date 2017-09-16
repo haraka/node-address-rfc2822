@@ -1,9 +1,9 @@
-"use strict";
+'use strict';
 
-const ea_lib = require("email-addresses");
+const ea_lib = require('email-addresses');
 
 exports.parse = function parse (line, startAt) {
-    if (!line) throw "Nothing to parse";
+    if (!line) throw 'Nothing to parse';
 
     line = line.trim();
 
@@ -16,9 +16,8 @@ exports.parse = function parse (line, startAt) {
         rejectTLD: false, // domains require a "."
         startAt: startAt || null,
     });
-    if (!addr) {
-        throw "No results";
-    }
+
+    if (!addr) throw 'No results';
 
     // console.log("Parsed to: ", require('util').inspect(addr, {depth: 10, colors: true}));
 
@@ -150,17 +149,17 @@ Address.prototype.name = function () {
 
     // first.last@domain address
     if (name === '') {
-        const match = /([^\%\.\@_]+([\._][^\%\.\@_]+)+)[\@\%]/.exec(addr);
+        const match = /([^%.@_]+([._][^%.@_]+)+)[@%]/.exec(addr);
         if (match) {
-            name  = match[1].replace(/[\._]+/g, ' ');
+            name  = match[1].replace(/[._]+/g, ' ');
             name  = _extract_name(name);
         }
     }
 
     if (name === '' && /\/g=/i.test(addr)) {    // X400 style address
-        let match = /\/g=([^\/]*)/i.exec(addr);
+        let match = /\/g=([^/]*)/i.exec(addr);
         const f = match[1];
-        match = /\/s=([^\/]*)/i.exec(addr);
+        match = /\/s=([^/]*)/i.exec(addr);
         const l = match[1];
         name  = _extract_name(f + " " + l);
     }
@@ -201,7 +200,7 @@ exports.nameCase = function (string) {
 // given a comment, attempt to extract a person's name
 function _extract_name (name) {
     // Using encodings, too hard. See Mail::Message::Field::Full.
-    if (/\=\?.*?\?\=/.test(name)) return '';
+    if (/=?.*?\?=/.test(name)) return '';
 
     // trim whitespace
     name = name.trim();
