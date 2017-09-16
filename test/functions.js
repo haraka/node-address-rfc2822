@@ -1,4 +1,4 @@
-var address = require('../index');
+const address = require('../index');
 
 exports.isAllLower = {
     'lower latin string' : function (test) {

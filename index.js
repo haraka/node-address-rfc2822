@@ -1,13 +1,13 @@
-"use strict";
+'use strict';
 
-var ea_lib = require("email-addresses");
+const ea_lib = require('email-addresses');
 
 exports.parse = function parse (line, startAt) {
-    if (!line) throw "Nothing to parse";
+    if (!line) throw 'Nothing to parse';
 
     line = line.trim();
 
-    var addr = ea_lib({
+    const addr = ea_lib({
         input: line,
         rfc6532: true, // unicode
         partial: false, // return failed parses
@@ -16,9 +16,8 @@ exports.parse = function parse (line, startAt) {
         rejectTLD: false, // domains require a "."
         startAt: startAt || null,
     });
-    if (!addr) {
-        throw "No results";
-    }
+
+    if (!addr) throw 'No results';
 
     // console.log("Parsed to: ", require('util').inspect(addr, {depth: 10, colors: true}));
 
@@ -28,14 +27,14 @@ exports.parse = function parse (line, startAt) {
         if (adr.type === 'group') {
             return new Group(adr.name, adr.addresses.map(map_addresses));
         }
-        var comments;
+        let comments;
         if (adr.parts.comments) {
             comments = adr.parts.comments.map(function (c) { return c.tokens.trim() }).join(' ').trim();
             // if (comments.length) {
             //     comments = '(' + comments + ')';
             // }
         }
-        var l = adr.local;
+        let l = adr.local;
         if (!adr.name && /:/.test(l)) l = '"' + l + '"';
         return new Address(adr.name, l + '@' + adr.domain, comments);
     }
@@ -63,13 +62,13 @@ Group.prototype.format = function () {
 }
 
 Group.prototype.name = function () {
-    var phrase = this.phrase;
+    let phrase = this.phrase;
 
     if (!(phrase && phrase.length)) {
         phrase = this.comment;
     }
 
-    var name = _extract_name(phrase);
+    const name = _extract_name(phrase);
     return name;
 }
 
@@ -80,13 +79,13 @@ function Address (phrase, address, comment) {
 }
 
 Address.prototype.host = function () {
-    let match = /.*@(.*)$/.exec(this.address);
+    const match = /.*@(.*)$/.exec(this.address);
     if (!match) return null;
     return match[1];
 }
 
 Address.prototype.user = function () {
-    let match = /^(.*)@/.exec(this.address);
+    const match = /^(.*)@/.exec(this.address);
     if (!match) return null;
     return match[1];
 }
@@ -105,13 +104,13 @@ function _quote_no_esc (str) {
     return false;
 }
 
-var atext = new RegExp('^(?:\\s*[\\-\\w !#$%&\'*+/=?^`{|}~]\\s*)+$');
+const atext = new RegExp('^(?:\\s*[\\-\\w !#$%&\'*+/=?^`{|}~]\\s*)+$');
 Address.prototype.format = function () {
-    var phrase = this.phrase;
-    var email = this.address;
-    var comment = this.comment;
+    const phrase = this.phrase;
+    const email = this.address;
+    let comment = this.comment;
 
-    var addr = [];
+    const addr = [];
 
     if (phrase && phrase.length) {
         addr.push(atext.test(phrase) ? phrase
@@ -139,29 +138,29 @@ Address.prototype.format = function () {
 }
 
 Address.prototype.name = function () {
-    var phrase = this.phrase;
-    var addr = this.address;
+    let phrase = this.phrase;
+    const addr = this.address;
 
     if (!(phrase && phrase.length)) {
         phrase = this.comment;
     }
 
-    var name = _extract_name(phrase);
+    let name = _extract_name(phrase);
 
     // first.last@domain address
     if (name === '') {
-        let match = /([^\%\.\@_]+([\._][^\%\.\@_]+)+)[\@\%]/.exec(addr);
+        const match = /([^%.@_]+([._][^%.@_]+)+)[@%]/.exec(addr);
         if (match) {
-            name  = match[1].replace(/[\._]+/g, ' ');
+            name  = match[1].replace(/[._]+/g, ' ');
             name  = _extract_name(name);
         }
     }
 
     if (name === '' && /\/g=/i.test(addr)) {    // X400 style address
-        let match = /\/g=([^\/]*)/i.exec(addr);
-        var f = match[1];
-        match = /\/s=([^\/]*)/i.exec(addr);
-        var l = match[1];
+        let match = /\/g=([^/]*)/i.exec(addr);
+        const f = match[1];
+        match = /\/s=([^/]*)/i.exec(addr);
+        const l = match[1];
         name  = _extract_name(f + " " + l);
     }
 
@@ -201,7 +200,7 @@ exports.nameCase = function (string) {
 // given a comment, attempt to extract a person's name
 function _extract_name (name) {
     // Using encodings, too hard. See Mail::Message::Field::Full.
-    if (/\=\?.*?\?\=/.test(name)) return '';
+    if (/=?.*?\?=/.test(name)) return '';
 
     // trim whitespace
     name = name.trim();

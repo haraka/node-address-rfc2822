@@ -1,26 +1,30 @@
-var parse = require('../index').parse;
+
+const fs    = require('fs');
+const path  = require('path');
+
+const parse = require('../index').parse;
 
 function _check (test, line, details) {
     test.expect(Object.keys(details).length);
-    var parsed = parse(line)[0];
+    const parsed = parse(line)[0];
     // console.log("Parsed: ", parsed);
-    for (var k in details) {
+    for (const k in details) {
         test.equal(parsed[k](), details[k], "Test '" + k + "' for '" + parsed[k]() + "' = '" + details[k] + "' from " + JSON.stringify(parsed));
     }
     test.done();
 }
 
-var raw_data = require('fs').readFileSync(__dirname + '/emails.txt', "UTF-8");
+const raw_data = fs.readFileSync(path.join(__dirname, 'emails.txt'), "UTF-8");
 
-var tests = raw_data.split(/\n\n/).map(function (rows) {
-    var lines = rows.split(/\n/);
+const tests = raw_data.split(/\n\n/).map(function (rows) {
+    const lines = rows.split(/\n/);
     if (lines[0] === '') lines.shift();
     return lines.filter(function (l) { return !/^#/.test(l) });
 });
 
 exports.basic = {};
 tests.forEach(function (test) {
-    var details = {};
+    const details = {};
     details.format = test[1];
     if (test[2]) {
         details.name = test[2];
