@@ -104,7 +104,7 @@ function _quote_no_esc (str) {
     return false;
 }
 
-const atext = new RegExp('^(?:\\s*[\\-\\w !#$%&\'*+/=?^`{|}~]\\s*)+$');
+const atext = new RegExp('^[\\-\\w !#$%&\'*+/=?^`{|}~]+$');
 Address.prototype.format = function () {
     const phrase = this.phrase;
     const email = this.address;
@@ -113,7 +113,7 @@ Address.prototype.format = function () {
     const addr = [];
 
     if (phrase && phrase.length) {
-        addr.push(atext.test(phrase) ? phrase
+        addr.push(atext.test(phrase.trim()) ? phrase
             : _quote_no_esc(phrase) ? phrase
                 : ('"' + phrase + '"'));
 
