@@ -1,6 +1,6 @@
 {
   "name": "address-rfc2822",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "RFC 2822 (Header) email address parser",
   "main": "index.js",
   "homepage": "https://github.com/haraka/node-address-rfc2822",

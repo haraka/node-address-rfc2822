@@ -1,3 +1,7 @@
+## 2.0.2 - 2018-02-24
+
+- Fix a possible regexp backtracking DoS
+
 ## 2.0.1 - 2017-06-26
 
 - trim the line in parse()
