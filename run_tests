@@ -17,7 +17,7 @@ Cannot find nodeunit module. Please run the following:
 
 process.chdir(__dirname);
 
-let tests = [ 'tests' ];
+let tests = [ 'test' ];
 
 if (process.argv[2]) {
     console.log("Running tests: ", process.argv.slice(2));

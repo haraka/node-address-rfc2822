@@ -2,6 +2,7 @@
 ## 2.0.N - 2018-0N-NN
 
 - use es6 classes
+- export the Address class #29
 
 ## 2.0.2 - 2018-02-24
 
