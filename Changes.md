@@ -1,3 +1,8 @@
+
+## 2.0.N - 2018-0N-NN
+
+- use es6 classes
+
 ## 2.0.2 - 2018-02-24
 
 - Fix a possible regexp backtracking DoS
