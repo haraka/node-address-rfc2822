@@ -41,15 +41,15 @@ function map_addresses (adr) {
 }
 
 exports.parseFrom = function (line) {
-    exports.parse(line, 'from');
+    return exports.parse(line, 'from');
 }
 
 exports.parseSender = function (line) {
-    exports.parse(line, 'sender');
+    return exports.parse(line, 'sender');
 }
 
 exports.parseReplyTo = function (line) {
-    exports.parse(line, 'reply-to');
+    return exports.parse(line, 'reply-to');
 }
 
 class Group {

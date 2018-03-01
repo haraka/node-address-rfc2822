@@ -43,3 +43,48 @@ exports.nameCase = {
         test.done();
     }
 }
+
+exports.parseFrom = {
+    'Travis CI <builds@travis-ci.org>': function (test) {
+        test.expect(1);
+        try {
+            const r = address.parseFrom('Travis CI <builds@travis-ci.org>');
+            test.equal(r[0].address, 'builds@travis-ci.org');
+            // console.log(r);
+        }
+        catch (e) {
+            console.error(e);
+        }
+        test.done();
+    }
+}
+
+exports.parseSender = {
+    '"Anne Standley, PMPM" <info=protectmypublicmedia.org@mail172.atl101.mcdlv.net>': function (test) {
+        test.expect(1);
+        try {
+            const r = address.parseSender('"Anne Standley, PMPM" <info=protectmypublicmedia.org@mail172.atl101.mcdlv.net>');
+            test.equal(r[0].address, 'info=protectmypublicmedia.org@mail172.atl101.mcdlv.net');
+            // console.log(r);
+        }
+        catch (e) {
+            console.error(e);
+        }
+        test.done();
+    }
+}
+
+exports.parseReplyTo = {
+    '=?utf-8?Q?Anne=20Standley=2C=20Protect=20My=20Public=20Media?= <info@protectmypublicmedia.org>': function (test) {
+        test.expect(1);
+        try {
+            const r = address.parseReplyTo('=?utf-8?Q?Anne=20Standley=2C=20Protect=20My=20Public=20Media?= <info@protectmypublicmedia.org>');
+            test.equal(r[0].address, 'info@protectmypublicmedia.org');
+            // console.log(r);
+        }
+        catch (e) {
+            console.error(e);
+        }
+        test.done();
+    }
+}
