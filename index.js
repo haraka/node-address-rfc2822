@@ -22,74 +22,142 @@ exports.parse = function parse (line, startAt) {
     // console.log("Parsed to: ", require('util').inspect(addr, {depth: 10, colors: true}));
 
     return addr.addresses.map(map_addresses);
+}
 
-    function map_addresses (adr) {
-        if (adr.type === 'group') {
-            return new Group(adr.name, adr.addresses.map(map_addresses));
-        }
-        let comments;
-        if (adr.parts.comments) {
-            comments = adr.parts.comments.map(function (c) { return c.tokens.trim() }).join(' ').trim();
-            // if (comments.length) {
-            //     comments = '(' + comments + ')';
-            // }
-        }
-        let l = adr.local;
-        if (!adr.name && /:/.test(l)) l = '"' + l + '"';
-        return new Address(adr.name, l + '@' + adr.domain, comments);
+function map_addresses (adr) {
+    if (adr.type === 'group') {
+        return new Group(adr.name, adr.addresses.map(map_addresses));
     }
+    let comments;
+    if (adr.parts.comments) {
+        comments = adr.parts.comments.map(function (c) { return c.tokens.trim() }).join(' ').trim();
+        // if (comments.length) {
+        //     comments = '(' + comments + ')';
+        // }
+    }
+    let l = adr.local;
+    if (!adr.name && /:/.test(l)) l = '"' + l + '"';
+    return new Address(adr.name, l + '@' + adr.domain, comments);
 }
 
 exports.parseFrom = function (line) {
-    exports.parse(line, 'from');
+    return exports.parse(line, 'from');
 }
 
 exports.parseSender = function (line) {
-    exports.parse(line, 'sender');
+    return exports.parse(line, 'sender');
 }
 
 exports.parseReplyTo = function (line) {
-    exports.parse(line, 'reply-to');
+    return exports.parse(line, 'reply-to');
 }
 
-function Group (display_name, addresses) {
-    this.phrase = display_name;
-    this.addresses = addresses;
-}
-
-Group.prototype.format = function () {
-    return this.phrase + ":" + this.addresses.map(function (a) { return a.format() }).join(',');
-}
-
-Group.prototype.name = function () {
-    let phrase = this.phrase;
-
-    if (!(phrase && phrase.length)) {
-        phrase = this.comment;
+class Group {
+    constructor (display_name, addresses) {
+        this.phrase = display_name;
+        this.addresses = addresses;
     }
 
-    const name = _extract_name(phrase);
-    return name;
+    format () {
+        return this.phrase + ":" + this.addresses.map(function (a) { return a.format() }).join(',');
+    }
+
+    name () {
+        let phrase = this.phrase;
+
+        if (!(phrase && phrase.length)) {
+            phrase = this.comment;
+        }
+
+        const name = _extract_name(phrase);
+        return name;
+    }
 }
 
-function Address (phrase, address, comment) {
-    this.phrase  = phrase || '';
-    this.address = address || '';
-    this.comment = comment || '';
+class Address {
+    constructor (phrase, address, comment) {
+        this.phrase  = phrase || '';
+        this.address = address || '';
+        this.comment = comment || '';
+    }
+
+    host () {
+        const match = /.*@(.*)$/.exec(this.address);
+        if (!match) return null;
+        return match[1];
+    }
+
+    user () {
+        const match = /^(.*)@/.exec(this.address);
+        if (!match) return null;
+        return match[1];
+    }
+
+    format () {
+        const phrase = this.phrase;
+        const email = this.address;
+        let comment = this.comment;
+
+        const addr = [];
+        const atext = new RegExp('^[\\-\\w !#$%&\'*+/=?^`{|}~]+$');
+
+        if (phrase && phrase.length) {
+            addr.push(atext.test(phrase.trim()) ? phrase
+                : _quote_no_esc(phrase) ? phrase
+                    : ('"' + phrase + '"'));
+
+            if (email && email.length) {
+                addr.push("<" + email + ">");
+            }
+        }
+        else if (email && email.length) {
+            addr.push(email);
+        }
+
+        if (comment && /\S/.test(comment)) {
+            comment = comment.replace(/^\s*\(?/, '(')
+                .replace(/\)?\s*$/, ')');
+        }
+
+        if (comment && comment.length) {
+            addr.push(comment);
+        }
+
+        return addr.join(' ');
+    }
+
+    name () {
+        let phrase = this.phrase;
+        const addr = this.address;
+
+        if (!(phrase && phrase.length)) {
+            phrase = this.comment;
+        }
+
+        let name = _extract_name(phrase);
+
+        // first.last@domain address
+        if (name === '') {
+            const match = /([^%.@_]+([._][^%.@_]+)+)[@%]/.exec(addr);
+            if (match) {
+                name  = match[1].replace(/[._]+/g, ' ');
+                name  = _extract_name(name);
+            }
+        }
+
+        if (name === '' && /\/g=/i.test(addr)) {    // X400 style address
+            let match = /\/g=([^/]*)/i.exec(addr);
+            const f = match[1];
+            match = /\/s=([^/]*)/i.exec(addr);
+            const l = match[1];
+            name  = _extract_name(f + " " + l);
+        }
+
+        return name;
+    }
 }
+
 exports.Address = Address;
-
-Address.prototype.host = function () {
-    const match = /.*@(.*)$/.exec(this.address);
-    if (!match) return null;
-    return match[1];
-}
-
-Address.prototype.user = function () {
-    const match = /^(.*)@/.exec(this.address);
-    if (!match) return null;
-    return match[1];
-}
 
 // This is because JS regexps have no equivalent of
 // zero-width negative look-behind assertion for: /(?<!\\)"/
@@ -103,69 +171,6 @@ function _quote_no_esc (str) {
         str = str.substr(match[0].length);
     }
     return false;
-}
-
-const atext = new RegExp('^[\\-\\w !#$%&\'*+/=?^`{|}~]+$');
-Address.prototype.format = function () {
-    const phrase = this.phrase;
-    const email = this.address;
-    let comment = this.comment;
-
-    const addr = [];
-
-    if (phrase && phrase.length) {
-        addr.push(atext.test(phrase.trim()) ? phrase
-            : _quote_no_esc(phrase) ? phrase
-                : ('"' + phrase + '"'));
-
-        if (email && email.length) {
-            addr.push("<" + email + ">");
-        }
-    }
-    else if (email && email.length) {
-        addr.push(email);
-    }
-
-    if (comment && /\S/.test(comment)) {
-        comment = comment.replace(/^\s*\(?/, '(')
-            .replace(/\)?\s*$/, ')');
-    }
-
-    if (comment && comment.length) {
-        addr.push(comment);
-    }
-
-    return addr.join(' ');
-}
-
-Address.prototype.name = function () {
-    let phrase = this.phrase;
-    const addr = this.address;
-
-    if (!(phrase && phrase.length)) {
-        phrase = this.comment;
-    }
-
-    let name = _extract_name(phrase);
-
-    // first.last@domain address
-    if (name === '') {
-        const match = /([^%.@_]+([._][^%.@_]+)+)[@%]/.exec(addr);
-        if (match) {
-            name  = match[1].replace(/[._]+/g, ' ');
-            name  = _extract_name(name);
-        }
-    }
-
-    if (name === '' && /\/g=/i.test(addr)) {    // X400 style address
-        let match = /\/g=([^/]*)/i.exec(addr);
-        const f = match[1];
-        match = /\/s=([^/]*)/i.exec(addr);
-        const l = match[1];
-        name  = _extract_name(f + " " + l);
-    }
-
-    return name;
 }
 
 exports.isAllLower = function (string) {

@@ -1,3 +1,9 @@
+
+## 2.0.3 - 2018-03-01
+
+- use es6 classes
+- export the Address class #29
+
 ## 2.0.2 - 2018-02-24
 
 - Fix a possible regexp backtracking DoS

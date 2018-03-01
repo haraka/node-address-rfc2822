@@ -13,8 +13,7 @@ Parser for RFC2822 (Header) format email addresses.
 
 This module parses RFC2822 headers containing addresses such as From, To, CC, and Bcc headers.
 
-It is almost a direct port of the perl module Mail::Address and I'm grateful to the original
-authors of that module for the clean code and the tests.
+It is almost a direct port of the perl module Mail::Address and I'm grateful to the original authors of that module for the clean code and the tests.
 
 Installation
 ------------
