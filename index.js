@@ -77,6 +77,7 @@ function Address (phrase, address, comment) {
     this.address = address || '';
     this.comment = comment || '';
 }
+exports.Address = Address;
 
 Address.prototype.host = function () {
     const match = /.*@(.*)$/.exec(this.address);
