@@ -3,7 +3,7 @@
 const ea_lib = require('email-addresses');
 
 exports.parse = function parse (line, startAt) {
-    if (!line) throw 'Nothing to parse';
+    if (!line) throw new Error('Nothing to parse');
 
     line = line.trim();
 
@@ -17,7 +17,7 @@ exports.parse = function parse (line, startAt) {
         startAt: startAt || null,
     });
 
-    if (!addr) throw 'No results';
+    if (!addr) throw new Error('No results');
 
     // console.log("Parsed to: ", require('util').inspect(addr, {depth: 10, colors: true}));
 
