@@ -56,6 +56,18 @@ exports.parseFrom = {
             console.error(e);
         }
         test.done();
+    },
+    'root (Cron Daemon)': function (test) {
+        test.expect(1);
+        try {
+            const r = address.parseFrom('root (Cron Daemon)');
+            test.equal(r[0].address, '');
+            // console.log(r);
+        }
+        catch (e) {
+            test.equal(e.message, 'No results');
+        }
+        test.done();
     }
 }
 

@@ -1,4 +1,8 @@
 
+## 2.0.4 - 2018-06-29
+
+- throw a proper error object, not a string.
+
 ## 2.0.3 - 2018-03-01
 
 - use es6 classes
