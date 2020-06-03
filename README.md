@@ -3,7 +3,6 @@
 [![Code Climate][clim-img]][clim-url]
 [![Coverage Status][cov-img]][cov-url]
 [![Dependencies][dep-img]][dep-url]
-[![Greenkeeper badge][gk-img]][gk-url]
 
 
 address-rfc2822
@@ -52,5 +51,3 @@ This module is MIT licensed.
 [cov-url]: https://codecov.io/github/haraka/node-address-rfc2822?branch=master
 [clim-img]: https://codeclimate.com/github/haraka/haraka-plugin-template/badges/gpa.svg
 [clim-url]: https://codeclimate.com/github/haraka/haraka-plugin-template
-[gk-img]: https://badges.greenkeeper.io/haraka/node-address-rfc2822.svg
-[gk-url]: https://greenkeeper.io/
