@@ -1,19 +1,18 @@
-const address = require('../index');
+const assert  = require('assert')
 
-exports.host = {
-    'user@example.com' : function (test) {
-        test.expect(1);
-        const r = new address.Address(null, 'user@example.com');
-        test.equal(r.host(), 'example.com');
-        test.done();
-    },
-}
+const address = require('../index')
 
-exports.user = {
-    'user@example.com' : function (test) {
-        test.expect(1);
+
+describe('Address', function () {
+    it('host', function (done) {
         const r = new address.Address(null, 'user@example.com');
-        test.equal(r.user(), 'user');
-        test.done();
-    },
-}
+        assert.equal(r.host(), 'example.com');
+        done();
+    })
+
+    it('user', function (done) {
+        const r = new address.Address(null, 'user@example.com');
+        assert.equal(r.user(), 'user');
+        done();
+    })
+})

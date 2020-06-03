@@ -1,3 +1,7 @@
+## 2.0.5 - 2020-06-02
+
+- update email-addresses to 3.1.0
+- test framework: nodeunit -> mocha
 
 ## 2.0.4 - 2018-06-29
 

@@ -1,6 +1,6 @@
 {
   "name": "address-rfc2822",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "description": "RFC 2822 (Header) email address parser",
   "main": "index.js",
   "homepage": "https://github.com/haraka/node-address-rfc2822",
@@ -13,10 +13,10 @@
     "from"
   ],
   "scripts": {
-    "test": "node run_tests",
-    "lint": "./node_modules/.bin/eslint *.js test/*.js",
-    "lintfix": "./node_modules/.bin/eslint --fix *.js test/*.js",
-    "cover": "./node_modules/.bin/istanbul cov run_tests"
+    "test": "mocha",
+    "lint": "npx eslint *.js test/*.js",
+    "lintfix": "npx eslint --fix *.js test/*.js",
+    "cover": "npx istanbul cov run_tests"
   },
   "repository": {
     "type": "git",
@@ -25,10 +25,10 @@
   "devDependencies": {
     "eslint": "*",
     "eslint-plugin-haraka": "*",
-    "nodeunit": "*"
+    "mocha": "*"
   },
   "license": "MIT",
   "dependencies": {
-    "email-addresses": "^3.0.0"
+    "email-addresses": "^3.1.0"
   }
 }
