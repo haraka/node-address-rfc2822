@@ -11,7 +11,7 @@ script:
     - npm test
 
 after_success:
-   - npm install istanbul codecov
+   - npm install --no-save nyc codecov
    - npm run cover
    - npx codecov
 

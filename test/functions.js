@@ -1,102 +1,93 @@
+const assert  = require('assert')
+
 const address = require('../index');
 
-exports.isAllLower = {
-    'lower latin string' : function (test) {
-        test.expect(1);
-        test.equal(true, address.isAllLower('abcdefg'));
-        test.done();
-    },
-}
+describe('isAllLower', function () {
+    it('lower latin string', function (done) {
+        assert.equal(true, address.isAllLower('abcdefg'));
+        done();
+    })
+})
 
-exports.isAllUpper = {
-    'upper latin string' : function (test) {
-        test.expect(1);
-        test.equal(true, address.isAllUpper('ABCDEFG'));
-        test.done();
-    }
-}
+describe('isAllUpper', function () {
+    it('upper latin string', function (done) {
+        assert.equal(true, address.isAllUpper('ABCDEFG'));
+        done();
+    })
+})
 
-exports.nameCase = {
-    'john doe -> John Doe' : function (test) {
-        test.expect(1);
-        test.equal('John Doe', address.nameCase('john doe'));
-        test.done();
-    },
-    'JANE SMITH -> Jane Smith' : function (test) {
-        test.expect(1);
-        test.equal('Jane Smith', address.nameCase('JANE SMITH'));
-        test.done();
-    },
-    'marty mcleod -> Marty McLeod': function (test) {
-        test.expect(1);
-        test.equal('Marty McLeod', address.nameCase('marty mcleod'));
-        test.done();
-    },
-    'martin o\'mally -> Martin O\'Malley': function (test) {
-        test.expect(1);
-        test.equal("Martin O'Malley", address.nameCase("martin o'malley"));
-        test.done();
-    },
-    'level iii support -> Level III Support': function (test) {
-        test.expect(1);
-        test.equal("Level III Support", address.nameCase("level iii support"));
-        test.done();
-    }
-}
+describe('nameCase', function () {
+    it('john doe -> John Doe', function (done) {
+        assert.equal('John Doe', address.nameCase('john doe'));
+        done();
+    })
+    it('JANE SMITH -> Jane Smith' , function (done) {
+        assert.equal('Jane Smith', address.nameCase('JANE SMITH'));
+        done();
+    })
+    it('marty mcleod -> Marty McLeod', function (done) {
+        assert.equal('Marty McLeod', address.nameCase('marty mcleod'));
+        done();
+    })
+    it('martin o\'mally -> Martin O\'Malley', function (done) {
+        assert.equal("Martin O'Malley", address.nameCase("martin o'malley"));
+        done();
+    })
+    it('level iii support -> Level III Support', function (done) {
+        assert.equal("Level III Support", address.nameCase("level iii support"));
+        done();
+    })
+})
 
-exports.parseFrom = {
-    'Travis CI <builds@travis-ci.org>': function (test) {
-        test.expect(1);
+describe('parseFrom', function () {
+    it('Travis CI <builds@travis-ci.org>', function (done) {
         try {
             const r = address.parseFrom('Travis CI <builds@travis-ci.org>');
-            test.equal(r[0].address, 'builds@travis-ci.org');
+            assert.equal(r[0].address, 'builds@travis-ci.org');
             // console.log(r);
         }
         catch (e) {
             console.error(e);
         }
-        test.done();
-    },
-    'root (Cron Daemon)': function (test) {
-        test.expect(1);
+        done();
+    })
+    it('root (Cron Daemon)', function (done) {
         try {
             const r = address.parseFrom('root (Cron Daemon)');
-            test.equal(r[0].address, '');
+            assert.equal(r[0].address, '');
             // console.log(r);
         }
         catch (e) {
-            test.equal(e.message, 'No results');
+            assert.equal(e.message, 'No results');
         }
-        test.done();
-    }
-}
+        done();
+    })
+})
 
-exports.parseSender = {
-    '"Anne Standley, PMPM" <info=protectmypublicmedia.org@mail172.atl101.mcdlv.net>': function (test) {
-        test.expect(1);
+describe('parseSender', function () {
+    it('"Anne Standley, PMPM" <info=protectmypublicmedia.org@mail172.atl101.mcdlv.net>', function (done) {
         try {
             const r = address.parseSender('"Anne Standley, PMPM" <info=protectmypublicmedia.org@mail172.atl101.mcdlv.net>');
-            test.equal(r[0].address, 'info=protectmypublicmedia.org@mail172.atl101.mcdlv.net');
+            assert.equal(r[0].address, 'info=protectmypublicmedia.org@mail172.atl101.mcdlv.net');
             // console.log(r);
         }
         catch (e) {
             console.error(e);
         }
-        test.done();
-    }
-}
+        done();
+    })
+})
 
-exports.parseReplyTo = {
-    '=?utf-8?Q?Anne=20Standley=2C=20Protect=20My=20Public=20Media?= <info@protectmypublicmedia.org>': function (test) {
-        test.expect(1);
+describe('parseReplyTo', function () {
+    it('=?utf-8?Q?Anne=20Standley=2C=20Protect=20My=20Public=20Media?= <info@protectmypublicmedia.org>', function (done) {
         try {
             const r = address.parseReplyTo('=?utf-8?Q?Anne=20Standley=2C=20Protect=20My=20Public=20Media?= <info@protectmypublicmedia.org>');
-            test.equal(r[0].address, 'info@protectmypublicmedia.org');
+            assert.equal(r[0].address, 'info@protectmypublicmedia.org');
             // console.log(r);
         }
         catch (e) {
             console.error(e);
         }
-        test.done();
-    }
-}
+        done();
+    })
+})
