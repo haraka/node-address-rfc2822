@@ -36,8 +36,8 @@ function map_addresses (adr) {
         // }
     }
     let l = adr.local;
-    if (!adr.name && /:/.test(l)) l = '"' + l + '"';
-    return new Address(adr.name, l + '@' + adr.domain, comments);
+    if (!adr.name && /:/.test(l)) l = `"${  l  }"`;
+    return new Address(adr.name, `${l  }@${  adr.domain}`, comments);
 }
 
 exports.parseFrom = function (line) {
@@ -59,7 +59,7 @@ class Group {
     }
 
     format () {
-        return this.phrase + ":" + this.addresses.map(function (a) { return a.format() }).join(',');
+        return `${this.phrase  }:${  this.addresses.map(function (a) { return a.format() }).join(',')}`;
     }
 
     name () {
@@ -104,10 +104,10 @@ class Address {
         if (phrase && phrase.length) {
             addr.push(atext.test(phrase.trim()) ? phrase
                 : _quote_no_esc(phrase) ? phrase
-                    : ('"' + phrase + '"'));
+                    : (`"${  phrase  }"`));
 
             if (email && email.length) {
-                addr.push("<" + email + ">");
+                addr.push(`<${  email  }>`);
             }
         }
         else if (email && email.length) {
@@ -150,7 +150,7 @@ class Address {
             const f = match[1];
             match = /\/s=([^/]*)/i.exec(addr);
             const l = match[1];
-            name  = _extract_name(f + " " + l);
+            name  = _extract_name(`${f  } ${  l}`);
         }
 
         return name;
@@ -191,11 +191,11 @@ exports.nameCase = function (string) {
         })
         .replace(/\bMc(\w)/gi, function (_, d1) {
             // Scottish names such as 'McLeod'
-            return 'Mc' + d1.toUpperCase();
+            return `Mc${  d1.toUpperCase()}`;
         })
         .replace(/\bo'(\w)/gi, function (_, d1) {
             // Irish names such as 'O'Malley, O'Reilly'
-            return 'O\'' + d1.toUpperCase();
+            return `O'${  d1.toUpperCase()}`;
         })
         .replace(/\b(x*(ix)?v*(iv)?i*)\b/ig, function (_, d1) {
             // Roman numerals, eg 'Level III Support'

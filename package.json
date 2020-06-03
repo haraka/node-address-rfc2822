@@ -16,7 +16,7 @@
     "test": "mocha",
     "lint": "npx eslint *.js test/*.js",
     "lintfix": "npx eslint --fix *.js test/*.js",
-    "cover": "npx istanbul cov run_tests"
+    "cover": "npx istanbul cov npm test"
   },
   "repository": {
     "type": "git",
