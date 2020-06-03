@@ -16,7 +16,7 @@
     "test": "mocha",
     "lint": "npx eslint *.js test/*.js",
     "lintfix": "npx eslint --fix *.js test/*.js",
-    "cover": "NODE_ENV=cov npx nyc --reporter=lcovonly -x tests npm test"
+    "cover": "NODE_ENV=cov npx nyc --reporter=lcovonly -x test npm test"
   },
   "repository": {
     "type": "git",

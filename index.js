@@ -65,9 +65,7 @@ class Group {
     name () {
         let phrase = this.phrase;
 
-        if (!(phrase && phrase.length)) {
-            phrase = this.comment;
-        }
+        if (!(phrase && phrase.length)) phrase = this.comment;
 
         const name = _extract_name(phrase);
         return name;
@@ -104,10 +102,10 @@ class Address {
         if (phrase && phrase.length) {
             addr.push(atext.test(phrase.trim()) ? phrase
                 : _quote_no_esc(phrase) ? phrase
-                    : (`"${  phrase  }"`));
+                    : (`"${phrase}"`));
 
             if (email && email.length) {
-                addr.push(`<${  email  }>`);
+                addr.push(`<${email}>`);
             }
         }
         else if (email && email.length) {
@@ -150,7 +148,7 @@ class Address {
             const f = match[1];
             match = /\/s=([^/]*)/i.exec(addr);
             const l = match[1];
-            name  = _extract_name(`${f  } ${  l}`);
+            name  = _extract_name(`${f} ${l}`);
         }
 
         return name;
@@ -165,9 +163,8 @@ function _quote_no_esc (str) {
     if (/^"/.test(str)) return true;
     let match;
     while ((match = /^[\s\S]*?([\s\S])"/.exec(str))) {
-        if (match[1] !== '\\') {
-            return true;
-        }
+        if (match[1] !== '\\') return true;
+
         str = str.substr(match[0].length);
     }
     return false;
@@ -191,11 +188,11 @@ exports.nameCase = function (string) {
         })
         .replace(/\bMc(\w)/gi, function (_, d1) {
             // Scottish names such as 'McLeod'
-            return `Mc${  d1.toUpperCase()}`;
+            return `Mc${d1.toUpperCase()}`;
         })
         .replace(/\bo'(\w)/gi, function (_, d1) {
             // Irish names such as 'O'Malley, O'Reilly'
-            return `O'${  d1.toUpperCase()}`;
+            return `O'${d1.toUpperCase()}`;
         })
         .replace(/\b(x*(ix)?v*(iv)?i*)\b/ig, function (_, d1) {
             // Roman numerals, eg 'Level III Support'

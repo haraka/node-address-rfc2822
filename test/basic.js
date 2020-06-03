@@ -18,17 +18,17 @@ describe('basic parse', function () {
 
     tests.forEach(function (test) {
 
-        const details = {};
-        details.format = test[1];
-        if (test[2]) details.name = test[2];
-
         it(test[0], function () {
 
-            const parsed = parse(test[0]);
-            // console.log("Parsed: ", parsed);
+            const details = {};
+            details.format = test[1];
+            if (test[2]) details.name = test[2];
 
-            for (const k in parsed) {
-                assert.equal(parsed[0][k], details[k], `Test '${k}' for '${parsed[0][k]}' = '${details[k]}' from ${JSON.stringify(parsed)}`);
+            const parsed = parse(test[0])[0];
+            // console.log('Parsed', parsed);
+
+            for (const k in details) {
+                assert.equal(parsed[k](), details[k], `Test '${k}' for '${parsed[k]()}' = '${details[k]}' from ${JSON.stringify(parsed)}`);
             }
         })
     })
