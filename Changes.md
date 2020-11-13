@@ -1,3 +1,8 @@
+
+## 2.0.6 - 2020-11-DD
+
+- replace travis/appveyor CI tests with Github Actions
+
 ## 2.0.5 - 2020-06-02
 
 - update email-addresses to 3.1.0
