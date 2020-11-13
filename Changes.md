@@ -3,32 +3,39 @@
 
 - replace travis/appveyor CI tests with Github Actions
 
+
 ## 2.0.5 - 2020-06-02
 
 - update email-addresses to 3.1.0
 - test framework: nodeunit -> mocha
 
+
 ## 2.0.4 - 2018-06-29
 
 - throw a proper error object, not a string.
+
 
 ## 2.0.3 - 2018-03-01
 
 - use es6 classes
 - export the Address class #29
 
+
 ## 2.0.2 - 2018-02-24
 
 - Fix a possible regexp backtracking DoS
+
 
 ## 2.0.1 - 2017-06-26
 
 - trim the line in parse()
 
+
 ## 1.0.2 - 2016-06-16
 
 - use email-addresses for parser
 - updated for eslint 4 compat
+
 
 ## 1.0.1 - 2016-09-23
 
