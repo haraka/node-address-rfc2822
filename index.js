@@ -15,6 +15,7 @@ exports.parse = function parse (line, startAt) {
         strict: false, // turn off obs- features in the rfc
         rejectTLD: false, // domains require a "."
         startAt: startAt || null,
+        atInDisplayName: true // allow at in display name
     });
 
     if (!addr) throw new Error('No results');
