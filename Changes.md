@@ -2,6 +2,7 @@
 ## 2.0.6 - 2020-11-DD
 
 - replace travis/appveyor CI tests with Github Actions
+- test: when splitting lines, use os.EOL
 
 
 ## 2.0.5 - 2020-06-02
