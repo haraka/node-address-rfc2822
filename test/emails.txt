@@ -1,3 +1,7 @@
+foo@example <foo@example.com>
+"foo@example" <foo@example.com>
+Foo@Example
+
 "Joe & J. Harvey" <ddd @Org>, JJV @ BBN
 "Joe & J. Harvey" <ddd@Org>
 Joe & J. Harvey
