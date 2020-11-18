@@ -21,16 +21,19 @@ Installation
 Usage
 -----
 
-    const addrparser = require('address-rfc2822');
+```js
+const addrparser = require('address-rfc2822');
 
-    const addresses = addrparser.parse("Matt Sergeant <helpme+npm@gmail.com>");
-    const address = addresses[0];
+const addresses = addrparser.parse("Matt Sergeant <helpme+npm@gmail.com>");
+const address = addresses[0];
 
-    console.log(`Email address: ${address.address}`);
-    console.log(`Email name: ${address.name()}`);
-    console.log(`Reformatted: ${address.format()}`);
-    console.log(`User part: ${address.user()}`);
-    console.log(`Host part: ${address.host()}`);
+console.log(`Email address: ${address.address}`);
+console.log(`Email name: ${address.name()}`);
+console.log(`Reformatted: ${address.format()}`);
+console.log(`User part: ${address.user()}`);
+console.log(`Host part: ${address.host()}`);
+
+```
 
 
 License
