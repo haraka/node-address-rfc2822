@@ -1,8 +1,9 @@
 
-## 2.0.6 - 2020-11-DD
+## 2.0.6 - 2020-11-17
 
 - replace travis/appveyor CI tests with Github Actions
 - test: when splitting lines, use os.EOL
+- allow @ symbol in display name #47
 
 
 ## 2.0.5 - 2020-06-02
