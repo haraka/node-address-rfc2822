@@ -1,3 +1,7 @@
+Foo, Bar <foo@example.com>
+"Foo, Bar" <foo@example.com>
+Bar Foo
+
 foo@example <foo@example.com>
 "foo@example" <foo@example.com>
 Foo@Example
