@@ -2,7 +2,7 @@
 
 const ea_lib = require('email-addresses');
 
-exports.parse = function parse (line, startAt) {
+exports.parse = function parse (line, startAt = null, { allowCommaInDisplayName = false } = {}) {
     if (!line) throw new Error('Nothing to parse');
 
     line = line.trim();
@@ -16,7 +16,7 @@ exports.parse = function parse (line, startAt) {
         rejectTLD: false, // domains require a "."
         startAt: startAt || null,
         atInDisplayName: true, // allow at in display name
-        commaInDisplayName: true // allow comma in display name
+        commaInDisplayName: allowCommaInDisplayName,
     });
 
     if (!addr) throw new Error('No results');

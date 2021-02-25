@@ -91,3 +91,27 @@ describe('parseReplyTo', function () {
         done();
     })
 })
+
+describe('parse with options', function () {
+    it('should not allow parsing display name with comma by default', function (done) {
+        try {
+            const r = address.parse('Foo, Bar <foo@example.com>');
+        }
+        catch (e) {
+            assert.equal(e.message, 'No results');
+        }
+        done();
+    })
+
+    it('should allow parsing display name with comma', function (done) {
+        try {
+            const [r] = address.parse('Foo, Bar <foo@example.com>', null, { allowCommaInDisplayName: true });
+            assert.equal('foo@example.com', r.address);
+            assert.equal('Foo, Bar', r.phrase);
+        }
+        catch (e) {
+            console.error(e);
+        }
+        done();
+    })
+})
