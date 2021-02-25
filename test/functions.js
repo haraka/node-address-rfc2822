@@ -95,7 +95,7 @@ describe('parseReplyTo', function () {
 describe('parse with options', function () {
     it('should not allow parsing display name with comma by default', function (done) {
         try {
-            const r = address.parse('Foo, Bar <foo@example.com>');
+            address.parse('Foo, Bar <foo@example.com>');
         }
         catch (e) {
             assert.equal(e.message, 'No results');
