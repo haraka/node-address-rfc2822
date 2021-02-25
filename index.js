@@ -2,10 +2,19 @@
 
 const ea_lib = require('email-addresses');
 
-exports.parse = function parse (line, startAt = null, { allowCommaInDisplayName = false } = {}) {
+exports.parse = function parse (line, opts = null) {
     if (!line) throw new Error('Nothing to parse');
 
     line = line.trim();
+
+    const defaultOpts = {
+        startAt: null,
+        allowCommaInDisplayName: false,
+    }
+
+    const { startAt, allowCommaInDisplayName} = typeof opts === 'object'
+        ? Object.assign({}, defaultOpts, opts)
+        : Object.assign({}, defaultOpts, { startAt: opts })
 
     const addr = ea_lib({
         input: line,

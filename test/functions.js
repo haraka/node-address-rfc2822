@@ -105,7 +105,7 @@ describe('parse with options', function () {
 
     it('should allow parsing display name with comma', function (done) {
         try {
-            const [r] = address.parse('Foo, Bar <foo@example.com>', null, { allowCommaInDisplayName: true });
+            const [r] = address.parse('Foo, Bar <foo@example.com>', { allowCommaInDisplayName: true });
             assert.equal('foo@example.com', r.address);
             assert.equal('Foo, Bar', r.phrase);
         }
