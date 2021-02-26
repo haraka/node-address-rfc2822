@@ -33,9 +33,3 @@ jobs:
 
       env:
         CI: true
-
-    # services:
-    #   redis:
-    #     image: redis
-    #     ports:
-    #       - 6379/tcp
