@@ -1,4 +1,9 @@
 
+## 2.1.0 - 2021-02-26
+
+- make parse accept an options object as second argument
+- allow , character in display name, off by default #52
+
 ## 2.0.6 - 2020-11-17
 
 - replace travis/appveyor CI tests with Github Actions

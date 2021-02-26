@@ -2,10 +2,20 @@
 
 const ea_lib = require('email-addresses');
 
-exports.parse = function parse (line, startAt) {
+exports.parse = function parse (line, opts = null) {
     if (!line) throw new Error('Nothing to parse');
 
     line = line.trim();
+
+    const defaultOpts = {
+        startAt: null,
+        allowAtInDisplayName: true,
+        allowCommaInDisplayName: false,
+    }
+
+    const { startAt, allowAtInDisplayName, allowCommaInDisplayName } = typeof opts === 'object'
+        ? Object.assign({}, defaultOpts, opts)
+        : Object.assign({}, defaultOpts, { startAt: opts })
 
     const addr = ea_lib({
         input: line,
@@ -15,7 +25,8 @@ exports.parse = function parse (line, startAt) {
         strict: false, // turn off obs- features in the rfc
         rejectTLD: false, // domains require a "."
         startAt: startAt || null,
-        atInDisplayName: true // allow at in display name
+        atInDisplayName: allowAtInDisplayName,
+        commaInDisplayName: allowCommaInDisplayName,
     });
 
     if (!addr) throw new Error('No results');
