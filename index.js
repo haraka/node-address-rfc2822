@@ -9,10 +9,11 @@ exports.parse = function parse (line, opts = null) {
 
     const defaultOpts = {
         startAt: null,
+        allowAtInDisplayName: true,
         allowCommaInDisplayName: false,
     }
 
-    const { startAt, allowCommaInDisplayName} = typeof opts === 'object'
+    const { startAt, allowAtInDisplayName, allowCommaInDisplayName } = typeof opts === 'object'
         ? Object.assign({}, defaultOpts, opts)
         : Object.assign({}, defaultOpts, { startAt: opts })
 
@@ -24,7 +25,7 @@ exports.parse = function parse (line, opts = null) {
         strict: false, // turn off obs- features in the rfc
         rejectTLD: false, // domains require a "."
         startAt: startAt || null,
-        atInDisplayName: true, // allow at in display name
+        atInDisplayName: allowAtInDisplayName,
         commaInDisplayName: allowCommaInDisplayName,
     });
 
