@@ -36,6 +36,12 @@ console.log(`Host part: ${address.host()}`);
 ```
 
 
+More Info
+-------
+- [RFC 2822](https://tools.ietf.org/html/rfc2822)
+- [RFC 5322](https://tools.ietf.org/html/rfc5322)
+
+
 License
 -------
 
