@@ -1,0 +1,14 @@
+.github
+.DS_Store
+.editorconfig
+.gitignore
+.gitmodules
+.lgtm.yml
+appveyor.yml
+.travis.yml
+.eslintrc.yaml
+.eslintrc.json
+.nyc_output
+coverage
+.codeclimate.yml
+codecov.yml
