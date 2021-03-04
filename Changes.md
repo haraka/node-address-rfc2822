@@ -4,6 +4,7 @@
 - make parse accept an options object as second argument
 - allow comma (,) in display name, default off [#52](https://github.com/haraka/node-address-rfc2822/pull/52)
 
+
 ## 2.0.6 - 2020-11-17
 
 - replace travis/appveyor CI tests with Github Actions [#48](https://github.com/haraka/node-address-rfc2822/pull/48)
