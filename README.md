@@ -28,10 +28,10 @@ const addresses = addrparser.parse("Matt Sergeant <helpme+npm@gmail.com>");
 const address = addresses[0];
 
 console.log(`Email address: ${address.address}`); // helpme+npm@gmail.com
-console.log(`Email name: ${address.name()}`); // Matt Sergeant
-console.log(`Reformatted: ${address.format()}`); // Matt Sergeant <helpme+npm@gmail.com>
-console.log(`User part: ${address.user()}`); // helpme+npm
-console.log(`Host part: ${address.host()}`); // gmail.com
+console.log(`Email name: ${address.name()}`);     // Matt Sergeant
+console.log(`Reformatted: ${address.format()}`);  // Matt Sergeant <helpme+npm@gmail.com>
+console.log(`User part: ${address.user()}`);      // helpme+npm
+console.log(`Host part: ${address.host()}`);      // gmail.com
 
 ```
 
