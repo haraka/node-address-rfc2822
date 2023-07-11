@@ -4,7 +4,7 @@ const ea_lib = require('email-addresses');
 
 /**
  * @param {string} line string to parse
- * @param {object|null} opts 
+ * @param {object|null} opts
  * @param {string|null} opts.startAt Start the parser at one of address, address-list, angle-addr, from, group, mailbox, mailbox-list, reply-to, sender. Default: address-list
  * @param {boolean|null} opts.atInDisplayName Allow the @ character in the display name of the email address. Default: true
  * @param {boolean|null} opts.allowCommaInDisplayName - Allow the , character in the display name of the email address. Default: false
