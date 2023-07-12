@@ -1,0 +1,16 @@
+name: publish
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - package.json
+
+env:
+  CI: true
+
+jobs:
+  publish:
+    uses: haraka/.github/.github/workflows/publish.yml@master
+    secrets: inherit
