@@ -1,5 +1,4 @@
 [![Build Status][ci-img]][ci-url]
-[![Win Build status][ci-win-img]][ci-win-url]
 [![Code Climate][clim-img]][clim-url]
 [![Coverage Status][cov-img]][cov-url]
 
@@ -47,12 +46,8 @@ License
 
 This module is MIT licensed.
 
-
-
-[ci-img]: https://github.com/haraka/node-address-rfc2822/workflows/Unix%20Tests/badge.svg
-[ci-url]: https://github.com/haraka/node-address-rfc2822/actions?query=workflow%3A%22Unix+Tests%22
-[ci-win-img]: https://github.com/haraka/node-address-rfc2822/workflows/Tests%20-%20Windows/badge.svg
-[ci-win-url]: https://github.com/haraka/node-address-rfc2822/actions?query=workflow%3A%22Tests+-+Windows%22
+[ci-img]: https://github.com/haraka/node-address-rfc2822/actions/workflows/ci.yml/badge.svg
+[ci-url]: https://github.com/haraka/node-address-rfc2822/actions/workflows/ci.yml
 [cov-img]: https://codecov.io/github/haraka/node-address-rfc2822/coverage.svg
 [cov-url]: https://codecov.io/github/haraka/node-address-rfc2822?branch=master
 [clim-img]: https://codeclimate.com/github/haraka/haraka-plugin-template/badges/gpa.svg
