@@ -190,3 +190,7 @@ Nightly Monitor Robot
 Managing Partners:ben@example.com,carol@example.com;
 Managing Partners:ben@example.com,carol@example.com
 Managing Partners
+
+"Boomer" <123456.1234@compuserve.com>
+Boomer <123456.1234@compuserve.com>
+Boomer

@@ -3,8 +3,7 @@
 [![Coverage Status][cov-img]][cov-url]
 
 
-address-rfc2822
-==================
+# address-rfc2822
 
 Parser for RFC 2822 & 5322 (Header) format email addresses.
 
@@ -12,13 +11,11 @@ This module parses RFC 2822 headers containing addresses such as From, To, CC, a
 
 It is almost a direct port of the perl module Mail::Address and I'm grateful to the original authors of that module for the clean code and the tests.
 
-Installation
-------------
+## Installation
 
 `npm install address-rfc2822`
 
-Usage
------
+## Usage
 
 ```js
 const addrparser = require('address-rfc2822');
@@ -31,18 +28,15 @@ console.log(`Email name: ${address.name()}`);     // Matt Sergeant
 console.log(`Reformatted: ${address.format()}`);  // Matt Sergeant <helpme+npm@gmail.com>
 console.log(`User part: ${address.user()}`);      // helpme+npm
 console.log(`Host part: ${address.host()}`);      // gmail.com
-
 ```
 
+## More Info
 
-More Info
--------
 - [RFC 2822](https://tools.ietf.org/html/rfc2822)
 - [RFC 5322](https://tools.ietf.org/html/rfc5322)
 
 
-License
--------
+## License
 
 This module is MIT licensed.
 

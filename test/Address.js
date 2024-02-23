@@ -1,18 +1,26 @@
-const assert  = require('assert')
+const assert  = require('node:assert/strict')
 
 const address = require('../index')
 
 
 describe('Address', function () {
-    it('host', function (done) {
+    it('host', function () {
         const r = new address.Address(null, 'user@example.com');
         assert.equal(r.host(), 'example.com');
-        done();
     })
 
-    it('user', function (done) {
+    it('host, email missing domain', function () {
+        const r = new address.Address(null, 'user');
+        assert.equal(r.host(), null);
+    })
+
+    it('user', function () {
         const r = new address.Address(null, 'user@example.com');
         assert.equal(r.user(), 'user');
-        done();
+    })
+
+    it('host, user missing domain', function () {
+        const r = new address.Address(null, 'user');
+        assert.equal(r.user(), null);
     })
 })
