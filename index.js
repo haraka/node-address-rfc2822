@@ -227,27 +227,32 @@ function _extract_name (name) {
     // Using encodings, too hard. See Mail::Message::Field::Full.
     if (/=?.*?\?=/.test(name)) return '';
 
-    // trim whitespace
-    name = name.trim();
-    name = name.replace(/\s+/, ' ');
+    // trim & condense whitespace
+    name = name.trim().replace(/\s+/, ' ');
 
     // Disregard numeric names (e.g. 123456.1234@compuserve.com)
     if (/^[\d ]+$/.test(name)) return '';
 
-    name = name.replace(/^\((.*)\)$/, '$1') // remove outermost parenthesis
-        .replace(/^"(.*)"$/, '$1')  // remove outer quotation marks
-        .replace(/\(.*?\)/g, '')    // remove minimal embedded comments
-        .replace(/\\/g, '')         // remove all escapes
-        .replace(/^"(.*)"$/, '$1')  // remove internal quotation marks
-        .replace(/^([^\s]+) ?, ?(.*)$/, '$2 $1') // reverse "Last, First M." if applicable
+    // remove outermost parenthesis
+    if (name.slice(0,1) === '(' && name.slice(-1) === ')') name = name.slice(1,name.length-1)
+
+    // remove outer quotation marks
+    if (name.slice(0,1) === '"' && name.slice(-1) === '"') name = name.slice(1,name.length-1)
+
+    name = name.replace(/\(.*?\)/g, '')    // remove minimal embedded comments
+        .replace(/\\/g, '');         // remove all escapes
+
+    // remove internal quotation marks
+    if (name.slice(0,1) === '"' && name.slice(-1) === '"') name = name.slice(1,name.length-1)
+
+    name = name.replace(/^([^\s]+) ?, ?(.*)$/, '$2 $1') // reverse "Last, First M." if applicable
         .replace(/,.*/, '');
 
     // Change casing only when the name contains only upper or only
     // lower cased characters.
     if ( exports.isAllUpper(name) || exports.isAllLower(name) ) {
-        // console.log("Changing case of: " + name);
+        // console.log(`Changing case: ${name} to ${exports.nameCase(name)}`);
         name = exports.nameCase(name);
-        // console.log("Now: " + name);
     }
 
     // some cleanup
