@@ -4,12 +4,14 @@
 
 ### [2.2.0] - 2024-02-23
 
-- chore: add inline documentation for parse #60
-- test: drop node 10, add node 16 #61
+- feat: option to allow comma in display name #52
 - dep(email-addresses): bump from 4.0.0 to 5.0.0 #58
+- chore: replace a couple regex with slice (perf & sec) #63
+- test: a few more tests to boost coverage #63
+- test: drop node 10, add node 16 #61
 - ci: restore GH workflow for PRs #57
 - ci: add dependabot.yml #55
-- feat: allow comma in display name #52
+- doc: add inline documentation for parse #60
 - doc(Changes): make PR #s into links #54
 - doc(README): add result of console.logs #56
 - doc(README): add links to RFC 2822, 5322 #53
