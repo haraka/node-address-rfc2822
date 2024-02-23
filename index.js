@@ -186,7 +186,6 @@ function _quote_no_esc (str) {
     let match;
     while ((match = /^[\s\S]*?([\s\S])"/.exec(str))) {
         if (match[1] !== '\\') return true;
-
         str = str.substr(match[0].length);
     }
     return false;
