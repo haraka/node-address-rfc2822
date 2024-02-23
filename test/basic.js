@@ -18,12 +18,7 @@ const tests = raw_data.split(/\n\n/).map((rows) => {
 describe('parse', function () {
 
     it('throws on empty line', function () {
-        assert.throws(() => {
-            const parsed = parse('');
-        },
-        {
-            message: 'Nothing to parse'
-        })
+        assert.throws(() => { parse(''); }, { message: 'Nothing to parse' })
     })
 
     tests.forEach(function (test) {
