@@ -73,4 +73,5 @@
 ### 1.0.0 - 2016-02-23
 
 - Initial implementation
-[2.1.1]: https://github.com/haraka/node-address-rfc2822/releases/tag/2.1.1
+
+[2.2.0]: https://github.com/haraka/node-address-rfc2822/releases/tag/2.2.0
