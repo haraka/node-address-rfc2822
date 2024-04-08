@@ -2,7 +2,6 @@
 [![Code Climate][clim-img]][clim-url]
 [![Coverage Status][cov-img]][cov-url]
 
-
 # address-rfc2822
 
 Parser for RFC 2822 & 5322 (Header) format email addresses.
@@ -18,23 +17,22 @@ It is almost a direct port of the perl module Mail::Address and I'm grateful to 
 ## Usage
 
 ```js
-const addrparser = require('address-rfc2822');
+const addrparser = require('address-rfc2822')
 
-const addresses = addrparser.parse("Matt Sergeant <helpme+npm@gmail.com>");
-const address = addresses[0];
+const addresses = addrparser.parse('Matt Sergeant <helpme+npm@gmail.com>')
+const address = addresses[0]
 
-console.log(`Email address: ${address.address}`); // helpme+npm@gmail.com
-console.log(`Email name: ${address.name()}`);     // Matt Sergeant
-console.log(`Reformatted: ${address.format()}`);  // Matt Sergeant <helpme+npm@gmail.com>
-console.log(`User part: ${address.user()}`);      // helpme+npm
-console.log(`Host part: ${address.host()}`);      // gmail.com
+console.log(`Email address: ${address.address}`) // helpme+npm@gmail.com
+console.log(`Email name: ${address.name()}`)     // Matt Sergeant
+console.log(`Reformatted: ${address.format()}`)  // Matt Sergeant <helpme+npm@gmail.com>
+console.log(`User part: ${address.user()}`)      // helpme+npm
+console.log(`Host part: ${address.host()}`)      // gmail.com
 ```
 
 ## More Info
 
 - [RFC 2822](https://tools.ietf.org/html/rfc2822)
 - [RFC 5322](https://tools.ietf.org/html/rfc5322)
-
 
 ## License
 

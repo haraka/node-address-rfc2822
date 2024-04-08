@@ -1,13 +1,13 @@
 engines:
   eslint:
     enabled: true
-    channel: "eslint-8"
+    channel: 'eslint-8'
     config:
-      config: ".eslintrc.yaml"
+      config: '.eslintrc.yaml'
 
 ratings:
-   paths:
-   - "**.js"
+  paths:
+    - '**.js'
 
 checks:
   method-complexity:
