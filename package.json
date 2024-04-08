@@ -1,8 +1,9 @@
 {
   "name": "address-rfc2822",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "RFC 2822 & 5322 (Header) email address parser",
   "main": "index.js",
+  "files": ["CHANGELOG.md"],
   "homepage": "https://github.com/haraka/node-address-rfc2822",
   "keywords": [
     "email",
@@ -14,19 +15,21 @@
     "from"
   ],
   "scripts": {
-    "test": "npx mocha",
-    "lint": "npx eslint *.js test/*.js",
-    "lintfix": "npx eslint --fix *.js test/*.js",
-    "cover": "NODE_ENV=cov npx nyc --reporter=lcovonly npm test",
-    "versions": "npx dependency-version-checker check"
+    "format": "npm run prettier:fix && npm run lint:fix",
+    "lint": "npx eslint@^8 *.js test",
+    "lint:fix": "npx eslint@^8 *.js test --fix",
+    "prettier": "npx prettier . --check",
+    "prettier:fix": "npx prettier . --write --log-level=warn",
+    "test": "npx mocha@10",
+    "versions": "npx @msimerson/dependency-version-checker check",
+    "versions:fix": "npx @msimerson/dependency-version-checker update && npm run prettier:fix"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/haraka/node-address-rfc2822.git"
   },
   "devDependencies": {
-    "eslint": "8.57.0",
-    "eslint-plugin-haraka": "1.0.15"
+    "@haraka/eslint-config": "1.0.17"
   },
   "license": "MIT",
   "dependencies": {

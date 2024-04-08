@@ -1,6 +1,16 @@
+# Changelog
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/).
+
 
 ### Unreleased
 
+### [2.2.1] - 2024-04-08
+
+- dep: eslint-plugin-haraka -> @haraka/eslint-config
+- populate `[files]` in package.json. Delete .npmignore.
+- updated scripts{} in package.json
+- lint: remove duplicate / stale rules from .eslintrc
 
 ### [2.2.0] - 2024-02-23
 
@@ -76,4 +86,7 @@
 
 - Initial implementation
 
-[2.2.0]: https://github.com/haraka/node-address-rfc2822/releases/tag/2.2.0
+[2.2.0]: https://github.com/haraka/node-address-rfc2822/releases/tag/v2.2.0
+[2.2.1]: https://github.com/haraka/node-address-rfc2822/releases/tag/v2.2.1
+[2.0.6]: https://github.com/haraka/node-address-rfc2822/releases/tag/2.0.6
+[0.0.2]: https://github.com/haraka/node-address-rfc2822/releases/tag/v0.0.2
