@@ -54,9 +54,7 @@ function map_addresses(adr) {
     let comments;
     if (adr.parts.comments) {
         comments = adr.parts.comments
-            .map(function (c) {
-                return c.tokens.trim();
-            })
+            .map((c) => c.tokens.trim())
             .join(' ')
             .trim();
         // if (comments.length) {
@@ -88,9 +86,7 @@ class Group {
 
     format() {
         return `${this.phrase}:${this.addresses
-            .map(function (a) {
-                return a.format();
-            })
+            .map((a) => a.format())
             .join(',')}`;
     }
 
