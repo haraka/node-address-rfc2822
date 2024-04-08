@@ -2,6 +2,6 @@ env:
   node: true
   es6: true
   mocha: true
-  es2023: true
+  es2022: true
 
-extends: ["@haraka"]
+extends: ['@haraka']
