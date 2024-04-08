@@ -25,7 +25,7 @@
     "url": "https://github.com/haraka/node-address-rfc2822.git"
   },
   "devDependencies": {
-    "eslint": "8.57.0",
+    "eslint": "9.0.0",
     "eslint-plugin-haraka": "1.0.15"
   },
   "license": "MIT",
