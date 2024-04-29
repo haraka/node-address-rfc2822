@@ -1,6 +1,6 @@
 {
   "name": "address-rfc2822",
-  "version": "2.2.1",
+  "version": "2.2.2",
   "description": "RFC 2822 & 5322 (Header) email address parser",
   "main": "index.js",
   "files": [
@@ -23,15 +23,15 @@
     "prettier": "npx prettier . --check",
     "prettier:fix": "npx prettier . --write --log-level=warn",
     "test": "npx mocha@10",
-    "versions": "npx @msimerson/dependency-version-checker check",
-    "versions:fix": "npx @msimerson/dependency-version-checker update && npm run prettier:fix"
+    "versions": "npx dependency-version-checker check",
+    "versions:fix": "npx dependency-version-checker update && npm run prettier:fix"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/haraka/node-address-rfc2822.git"
   },
   "devDependencies": {
-    "@haraka/eslint-config": "1.1.3"
+    "@haraka/eslint-config": "1.1.5"
   },
   "license": "MIT",
   "dependencies": {

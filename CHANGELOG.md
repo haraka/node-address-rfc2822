@@ -4,6 +4,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ### Unreleased
 
+### [2.2.2] - 2024-04-29
+
+- doc(CONTRIBUTORS): added
+- dep(eslint-config): bumped to 1.1.5
+- chore: prettier
+
 ### [2.2.1] - 2024-04-08
 
 - dep: eslint-plugin-haraka -> @haraka/eslint-config
@@ -80,3 +86,4 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 [2.2.1]: https://github.com/haraka/node-address-rfc2822/releases/tag/v2.2.1
 [2.0.6]: https://github.com/haraka/node-address-rfc2822/releases/tag/2.0.6
 [0.0.2]: https://github.com/haraka/node-address-rfc2822/releases/tag/v0.0.2
+[2.2.2]: https://github.com/haraka/node-address-rfc2822/releases/tag/v2.2.2

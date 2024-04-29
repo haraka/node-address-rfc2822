@@ -16,6 +16,7 @@ It is almost a direct port of the perl module Mail::Address and I'm grateful to 
 
 ## Usage
 
+<!-- prettier-ignore -->
 ```js
 const addrparser = require('address-rfc2822')
 
