@@ -40,43 +40,44 @@ describe('nameCase', function () {
 })
 
 describe('parseFrom', function () {
-  it('Travis CI <builds@travis-ci.org>', function (done) {
+  it('Travis CI <builds@travis-ci.org>', function () {
     try {
       const r = address.parseFrom('Travis CI <builds@travis-ci.org>')
-      assert.equal(r[0].address, 'builds@travis-ci.org')
-      // console.log(r);
+      assert.deepEqual(r[0], {
+        phrase: 'Travis CI',
+        comment: '',
+        address: 'builds@travis-ci.org',
+      })
     } catch (e) {
       console.error(e)
     }
-    done()
   })
-  it('root (Cron Daemon)', function (done) {
+
+  it('root (Cron Daemon)', function () {
     try {
       const r = address.parseFrom('root (Cron Daemon)')
-      assert.equal(r[0].address, '')
-      // console.log(r);
+      assert.equal(r[0], { address: '' })
     } catch (e) {
       assert.equal(e.message, 'No results')
     }
-    done()
   })
 })
 
 describe('parseSender', function () {
-  it('"Anne Standley, PMPM" <info=protectmypublicmedia.org@mail172.atl101.mcdlv.net>', function (done) {
+  it('"Anne Standley, PMPM" <info=protectmypublicmedia.org@mail172.atl101.mcdlv.net>', function () {
     try {
       const r = address.parseSender(
         '"Anne Standley, PMPM" <info=protectmypublicmedia.org@mail172.atl101.mcdlv.net>',
       )
-      assert.equal(
-        r[0].address,
-        'info=protectmypublicmedia.org@mail172.atl101.mcdlv.net',
-      )
+      assert.deepEqual(r[0], {
+        address: 'info=protectmypublicmedia.org@mail172.atl101.mcdlv.net',
+        comment: '',
+        phrase: 'Anne Standley, PMPM',
+      })
       // console.log(r);
     } catch (e) {
       console.error(e)
     }
-    done()
   })
 })
 
@@ -86,7 +87,12 @@ describe('parseReplyTo', function () {
       const r = address.parseReplyTo(
         '=?utf-8?Q?Anne=20Standley=2C=20Protect=20My=20Public=20Media?= <info@protectmypublicmedia.org>',
       )
-      assert.equal(r[0].address, 'info@protectmypublicmedia.org')
+      assert.deepEqual(r[0], {
+        address: 'info@protectmypublicmedia.org',
+        comment: '',
+        phrase:
+          '=?utf-8?Q?Anne=20Standley=2C=20Protect=20My=20Public=20Media?=',
+      })
       // console.log(r);
     } catch (e) {
       console.error(e)

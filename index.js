@@ -93,8 +93,7 @@ class Group {
 
     if (!(phrase && phrase.length)) phrase = this.comment
 
-    const name = _extract_name(phrase)
-    return name
+    return _extract_name(phrase)
   }
 }
 
@@ -247,7 +246,7 @@ function _extract_name(name) {
     name = name.slice(1, name.length - 1)
 
   name = name
-    .replace(/\(.*?\)/g, '') // remove minimal embedded comments
+    .replace(/\([^)]*\)/g, '') // remove minimal embedded comments
     .replace(/\\/g, '') // remove all escapes
 
   // remove internal quotation marks
