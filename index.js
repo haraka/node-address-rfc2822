@@ -246,7 +246,7 @@ function _extract_name(name) {
     name = name.slice(1, name.length - 1)
 
   name = name
-    .replace(/\([^)]*\)/g, '') // remove minimal embedded comments
+    .replace(/\(.*?\)/g, '') // remove minimal embedded comments
     .replace(/\\/g, '') // remove all escapes
 
   // remove internal quotation marks
