@@ -56,7 +56,7 @@ describe('parseFrom', function () {
   it('root (Cron Daemon)', function () {
     try {
       const r = address.parseFrom('root (Cron Daemon)')
-      assert.equal(r[0], { address: '' })
+      assert.deepEqual(r[0], { address: '' })
     } catch (e) {
       assert.equal(e.message, 'No results')
     }
