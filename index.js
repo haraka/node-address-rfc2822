@@ -40,9 +40,7 @@ exports.parse = function parse(line, opts = null) {
     commaInDisplayName: allowCommaInDisplayName,
   })
 
-  if (!addr) throw new Error('No results')
-
-  // console.log("Parsed to: ", require('util').inspect(addr, {depth: 10, colors: true}));
+  if (!addr || addr.length === 0) throw new Error('No results')
 
   return addr.addresses.map(map_addresses)
 }
@@ -232,7 +230,7 @@ function _extract_name(name) {
   if (/=?.*?\?=/.test(name)) return ''
 
   // trim & condense whitespace
-  name = name.trim().replace(/\s+/, ' ')
+  name = name.trim().replace(/\s+/g, ' ')
 
   // Disregard numeric names (e.g. 123456.1234@compuserve.com)
   if (/^[\d ]+$/.test(name)) return ''
@@ -246,7 +244,7 @@ function _extract_name(name) {
     name = name.slice(1, name.length - 1)
 
   name = name
-    .replace(/\(.*?\)/g, '') // remove minimal embedded comments
+    .replace(/\([^)]*\)/g, '') // remove minimal embedded comments
     .replace(/\\/g, '') // remove all escapes
 
   // remove internal quotation marks
