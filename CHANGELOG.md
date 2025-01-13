@@ -4,6 +4,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ### Unreleased
 
+### [2.2.3] - 2025-01-13
+
+- dep(eslint): upgrade to v9
+
 ### [2.2.2] - 2024-04-29
 
 - doc(CONTRIBUTORS): added
@@ -87,3 +91,4 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 [2.0.6]: https://github.com/haraka/node-address-rfc2822/releases/tag/2.0.6
 [0.0.2]: https://github.com/haraka/node-address-rfc2822/releases/tag/v0.0.2
 [2.2.2]: https://github.com/haraka/node-address-rfc2822/releases/tag/v2.2.2
+[2.2.3]: https://github.com/haraka/node-address-rfc2822/releases/tag/v2.2.3
