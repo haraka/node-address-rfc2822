@@ -22,7 +22,7 @@
     "lint:fix": "npx eslint *.js test --fix",
     "prettier": "npx prettier . --check",
     "prettier:fix": "npx prettier . --write --log-level=warn",
-    "test": "npx mocha@10",
+    "test": "node --test",
     "versions": "npx dependency-version-checker check",
     "versions:fix": "npx dependency-version-checker update && npm run prettier:fix"
   },
@@ -31,7 +31,7 @@
     "url": "https://github.com/haraka/node-address-rfc2822.git"
   },
   "devDependencies": {
-    "@haraka/eslint-config": "2.0.2"
+    "@haraka/eslint-config": "^2.0.2"
   },
   "license": "MIT",
   "dependencies": {
