@@ -1,41 +1,36 @@
 const assert = require('assert')
+const test = require('node:test');
+const { describe, it } = require('node:test');
 
 const address = require('../index')
 
 describe('isAllLower', function () {
-  it('lower latin string', function (done) {
+  it('lower latin string', function () {
     assert.equal(true, address.isAllLower('abcdefg'))
-    done()
   })
 })
 
 describe('isAllUpper', function () {
-  it('upper latin string', function (done) {
+  it('upper latin string', function () {
     assert.equal(true, address.isAllUpper('ABCDEFG'))
-    done()
   })
 })
 
 describe('nameCase', function () {
-  it('john doe -> John Doe', function (done) {
+  it('john doe -> John Doe', function () {
     assert.equal('John Doe', address.nameCase('john doe'))
-    done()
   })
-  it('JANE SMITH -> Jane Smith', function (done) {
+  it('JANE SMITH -> Jane Smith', function () {
     assert.equal('Jane Smith', address.nameCase('JANE SMITH'))
-    done()
   })
-  it('marty mcleod -> Marty McLeod', function (done) {
+  it('marty mcleod -> Marty McLeod', function () {
     assert.equal('Marty McLeod', address.nameCase('marty mcleod'))
-    done()
   })
-  it("martin o'mally -> Martin O'Malley", function (done) {
+  it("martin o'mally -> Martin O'Malley", function () {
     assert.equal("Martin O'Malley", address.nameCase("martin o'malley"))
-    done()
   })
-  it('level iii support -> Level III Support', function (done) {
+  it('level iii support -> Level III Support', function () {
     assert.equal('Level III Support', address.nameCase('level iii support'))
-    done()
   })
 })
 
@@ -82,7 +77,7 @@ describe('parseSender', function () {
 })
 
 describe('parseReplyTo', function () {
-  it('=?utf-8?Q?Anne=20Standley=2C=20Protect=20My=20Public=20Media?= <info@protectmypublicmedia.org>', function (done) {
+  it('=?utf-8?Q?Anne=20Standley=2C=20Protect=20My=20Public=20Media?= <info@protectmypublicmedia.org>', function () {
     try {
       const r = address.parseReplyTo(
         '=?utf-8?Q?Anne=20Standley=2C=20Protect=20My=20Public=20Media?= <info@protectmypublicmedia.org>',
@@ -97,21 +92,19 @@ describe('parseReplyTo', function () {
     } catch (e) {
       console.error(e)
     }
-    done()
   })
 })
 
 describe('parse with options', function () {
-  it('should not allow parsing display name with comma by default', function (done) {
+  it('should not allow parsing display name with comma by default', function () {
     try {
       address.parse('Foo, Bar <foo@example.com>')
     } catch (e) {
       assert.equal(e.message, 'No results')
     }
-    done()
   })
 
-  it('should allow parsing display name with comma', function (done) {
+  it('should allow parsing display name with comma', function () {
     try {
       const [r] = address.parse('Foo, Bar <foo@example.com>', {
         allowCommaInDisplayName: true,
@@ -121,6 +114,5 @@ describe('parse with options', function () {
     } catch (e) {
       console.error(e)
     }
-    done()
   })
 })

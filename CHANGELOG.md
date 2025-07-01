@@ -4,6 +4,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ### Unreleased
 
+- test: convert runner from mocha to node --test
+
 ### [2.2.3] - 2025-01-13
 
 - dep(eslint): upgrade to v9
