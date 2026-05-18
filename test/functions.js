@@ -1,5 +1,5 @@
 const assert = require('assert')
-const { describe, it } = require('node:test');
+const { describe, it } = require('node:test')
 
 const address = require('../index')
 
@@ -84,8 +84,7 @@ describe('parseReplyTo', function () {
       assert.deepEqual(r[0], {
         address: 'info@protectmypublicmedia.org',
         comment: '',
-        phrase:
-          '=?utf-8?Q?Anne=20Standley=2C=20Protect=20My=20Public=20Media?=',
+        phrase: '=?utf-8?Q?Anne=20Standley=2C=20Protect=20My=20Public=20Media?=',
       })
       // console.log(r);
     } catch (e) {

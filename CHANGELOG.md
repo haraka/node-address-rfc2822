@@ -6,24 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ### [2.2.4] - 2026-05-18
 
-#### Added
-
-- 
-
-#### Fixed
-
-- 
-
-#### Changed
-
-- 
-
-#### Changed
-
-- convert runner from mocha to node --test (#74)
-
-
-- test: convert runner from mocha to node --test
+- doc: add deprecation notice
+- convert runner from mocha to node:test #74
 
 ### [2.2.3] - 2025-01-13
 
