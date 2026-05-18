@@ -1,6 +1,8 @@
 name: CI
 
-on: [pull_request, push]
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
 
 env:
   CI: true
@@ -8,15 +10,23 @@ env:
 jobs:
   lint:
     uses: haraka/.github/.github/workflows/lint.yml@master
+    permissions:
+      contents: read
 
   coverage:
     uses: haraka/.github/.github/workflows/coverage.yml@master
+    permissions:
+      contents: read
     secrets: inherit
 
   test:
     needs: [lint]
     uses: haraka/.github/.github/workflows/ubuntu.yml@master
+    permissions:
+      contents: read
 
   windows:
     needs: [lint]
     uses: haraka/.github/.github/workflows/windows.yml@master
+    permissions:
+      contents: read

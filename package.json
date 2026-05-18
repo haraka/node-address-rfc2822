@@ -1,6 +1,6 @@
 {
   "name": "address-rfc2822",
-  "version": "2.2.3",
+  "version": "2.2.4",
   "description": "RFC 2822 & 5322 (Header) email address parser",
   "main": "index.js",
   "files": [
