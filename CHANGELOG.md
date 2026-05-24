@@ -4,7 +4,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ### Unreleased
 
-- test: convert runner from mocha to node --test
+### [2.2.4] - 2026-05-18
+
+- doc: add deprecation notice
+- convert runner from mocha to node:test #74
 
 ### [2.2.3] - 2025-01-13
 
@@ -94,3 +97,4 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 [0.0.2]: https://github.com/haraka/node-address-rfc2822/releases/tag/v0.0.2
 [2.2.2]: https://github.com/haraka/node-address-rfc2822/releases/tag/v2.2.2
 [2.2.3]: https://github.com/haraka/node-address-rfc2822/releases/tag/v2.2.3
+[2.2.4]: https://github.com/haraka/node-address-rfc2822/releases/tag/v2.2.4

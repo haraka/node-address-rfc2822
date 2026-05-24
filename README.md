@@ -1,3 +1,9 @@
+# NOTICE, DEPRECATED
+
+This module is superseded by [@haraka/email-address](https://www.npmjs.com/package/@haraka/email-address). New projects should use `@haraka/email-address` instead. (ref haraka/Haraka#3564)
+
+---
+
 [![Build Status][ci-img]][ci-url]
 [![Code Climate][clim-img]][clim-url]
 [![Coverage Status][cov-img]][cov-url]
